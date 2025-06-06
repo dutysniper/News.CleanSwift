@@ -21,6 +21,8 @@
 		91D57DF22DF32FA6001DEBAF /* LoginScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DF12DF32FA6001DEBAF /* LoginScreenInteractor.swift */; };
 		91D57DF42DF32FDF001DEBAF /* LoginScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DF32DF32FDF001DEBAF /* LoginScreenPresenter.swift */; };
 		91D57DF62DF33017001DEBAF /* LoginScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DF52DF33017001DEBAF /* LoginScreenAssembler.swift */; };
+		91D57DF82DF3374B001DEBAF /* LoginScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DF72DF3374B001DEBAF /* LoginScreenModel.swift */; };
+		91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DF92DF36DDA001DEBAF /* EyeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		91D57DF12DF32FA6001DEBAF /* LoginScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenInteractor.swift; sourceTree = "<group>"; };
 		91D57DF32DF32FDF001DEBAF /* LoginScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenPresenter.swift; sourceTree = "<group>"; };
 		91D57DF52DF33017001DEBAF /* LoginScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenAssembler.swift; sourceTree = "<group>"; };
+		91D57DF72DF3374B001DEBAF /* LoginScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenModel.swift; sourceTree = "<group>"; };
+		91D57DF92DF36DDA001DEBAF /* EyeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,8 @@
 				91D57DF12DF32FA6001DEBAF /* LoginScreenInteractor.swift */,
 				91D57DF32DF32FDF001DEBAF /* LoginScreenPresenter.swift */,
 				91D57DF52DF33017001DEBAF /* LoginScreenAssembler.swift */,
+				91D57DF72DF3374B001DEBAF /* LoginScreenModel.swift */,
+				91D57DF92DF36DDA001DEBAF /* EyeButton.swift */,
 			);
 			path = LoginScreen;
 			sourceTree = "<group>";
@@ -325,8 +331,10 @@
 				91D57DF02DF32F31001DEBAF /* MainCoordinator.swift in Sources */,
 				91D57DB62DF32D67001DEBAF /* AppDelegate.swift in Sources */,
 				91D57DEE2DF32EF3001DEBAF /* AppCoordinator.swift in Sources */,
+				91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */,
 				91D57DEC2DF32ED5001DEBAF /* ICoordinator.swift in Sources */,
 				91D57DF22DF32FA6001DEBAF /* LoginScreenInteractor.swift in Sources */,
+				91D57DF82DF3374B001DEBAF /* LoginScreenModel.swift in Sources */,
 				91D57DF42DF32FDF001DEBAF /* LoginScreenPresenter.swift in Sources */,
 				91D57DB82DF32D67001DEBAF /* SceneDelegate.swift in Sources */,
 			);
