@@ -26,6 +26,7 @@
 		91D57DFD2DF44E53001DEBAF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */; };
 		91D57E002DF44F21001DEBAF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 91D57DFF2DF44F21001DEBAF /* Alamofire */; };
 		91D57E022DF451C1001DEBAF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E012DF451C1001DEBAF /* KeychainManager.swift */; };
+		91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		91D57DF92DF36DDA001DEBAF /* EyeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeButton.swift; sourceTree = "<group>"; };
 		91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		91D57E012DF451C1001DEBAF /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			children = (
 				91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */,
 				91D57E012DF451C1001DEBAF /* KeychainManager.swift */,
+				91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				91D57DB62DF32D67001DEBAF /* AppDelegate.swift in Sources */,
 				91D57DEE2DF32EF3001DEBAF /* AppCoordinator.swift in Sources */,
 				91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */,
+				91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */,
 				91D57DEC2DF32ED5001DEBAF /* ICoordinator.swift in Sources */,
 				91D57DF22DF32FA6001DEBAF /* LoginScreenInteractor.swift in Sources */,
 				91D57DF82DF3374B001DEBAF /* LoginScreenModel.swift in Sources */,
@@ -564,6 +568,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = News.CleanSwift/News.CleanSwiftRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q3W8P7J6DJ;

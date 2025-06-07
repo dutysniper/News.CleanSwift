@@ -11,6 +11,7 @@ import UIKit
 protocol ILoginScreenViewController: AnyObject {
 	func updatePhoneMask(_ mask: String)
 	func showAuthResult(_ success: Bool, errorMessage: String?)
+	func displayPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel)
 }
 
 // MARK: - View Controller
@@ -39,6 +40,7 @@ final class LoginScreenViewController: UIViewController {
 
 	// MARK: - Dependencies
 	var interactor: ILoginScreenInteractor?
+
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -84,6 +86,12 @@ extension LoginScreenViewController: ILoginScreenViewController {
 			print("success")
 		} else {
 			showAlert(message: errorMessage ?? "Ошибка авторизации")
+		}
+	}
+	func displayPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel) {
+		phoneTextField.placeholder = viewModel.phoneMask
+		if let phone = viewModel.formattedPhone {
+			phoneTextField.text = phone
 		}
 	}
 }
@@ -138,6 +146,7 @@ private extension LoginScreenViewController {
 		textField.layer.borderColor = UIColor.lightGray.cgColor
 		textField.layer.cornerRadius = 16
 		textField.textColor = .black
+		textField.delegate = self
 
 		if #available(iOS 12.0, *) {
 			textField.textContentType = .oneTimeCode
@@ -232,3 +241,29 @@ private extension LoginScreenViewController {
 	}
 }
 
+extension LoginScreenViewController: UITextFieldDelegate {
+	// Обработка ввода телефона
+	func textField(_ textField: UITextField,
+				   shouldChangeCharactersIn range: NSRange,
+				   replacementString string: String) -> Bool {
+
+		guard textField == phoneTextField else { return true }
+
+		let currentText = textField.text ?? ""
+		let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+
+		// Запрашиваем у Interactor отформатированный номер
+		let formattedText = interactor?.formatPhoneNumber(newText) ?? newText
+
+		textField.text = formattedText
+
+		// Позиционирование курсора
+		DispatchQueue.main.async {
+			let position = textField.position(from: textField.beginningOfDocument,
+											  offset: formattedText.count) ?? textField.endOfDocument
+			textField.selectedTextRange = textField.textRange(from: position, to: position)
+		}
+
+		return false
+	}
+}

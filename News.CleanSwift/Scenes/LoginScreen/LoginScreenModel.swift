@@ -12,9 +12,11 @@ enum LoginScreen {
 		struct Request {}
 		struct Response {
 			let phoneMask: String
+			let formattedPhone: String?
 		}
 		struct ViewModel {
 			let phoneMask: String
+			let formattedPhone: String?
 		}
 	}
 

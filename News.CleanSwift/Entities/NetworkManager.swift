@@ -21,6 +21,8 @@ final class NetworkManager: INetworkManager {
 			.responseDecodable(of: PhoneMaskResponse.self) { response in
 				switch response.result {
 				case .success(let data):
+					print("success fetch phone mask")
+					print("mask: \(data.phoneMask)")
 					completion(.success(data.phoneMask))
 				case .failure(let error):
 					completion(.failure(error))
@@ -34,37 +36,51 @@ final class NetworkManager: INetworkManager {
 			"password": password
 		]
 
+		let headers: HTTPHeaders = [
+			"Content-Type": "application/x-www-form-urlencoded",
+			"Accept": "application/json"
+		]
+
 		AF.request("\(baseURL)/auth",
 				   method: .post,
 				   parameters: parameters,
-				   encoder: URLEncodedFormParameterEncoder.default)
+				   encoder: URLEncodedFormParameterEncoder(destination: .httpBody),
+				   headers: headers)
 		.validate()
 		.responseDecodable(of: AuthResponse.self) { response in
+			print("Response: \(response)")
+
 			switch response.result {
 			case .success(let data):
+				print("Login success: \(data.success)")
 				completion(.success(data.success))
 			case .failure(let error):
+				print("Login error: \(error.localizedDescription)")
+				if let data = response.data {
+					print("Response data: \(String(data: data, encoding: .utf8) ?? "")")
+				}
+
 				if let statusCode = response.response?.statusCode {
 					let customError = NSError(
 						domain: "",
 						code: statusCode,
 						userInfo: [NSLocalizedDescriptionKey: self.errorMessage(for: statusCode)])
-						completion(.failure(customError))
-						} else {
-							completion(.failure(error))
+					completion(.failure(customError))
+				} else {
+					completion(.failure(error))
+				}
 			}
 		}
 	}
-}
 
-						private func errorMessage(for statusCode: Int) -> String {
-							switch statusCode {
-							case 400: return "Неверный запрос"
-							case 401: return "Неверный телефон или пароль"
-							default: return "Ошибка сервера"
-							}
-						}
-						}
+	private func errorMessage(for statusCode: Int) -> String {
+		switch statusCode {
+			case 400: return "Неверный запрос"
+			case 401: return "Неверный телефон или пароль"
+			default: return "Ошибка сервера"
+		}
+	}
+}
 
 // MARK: - Response Models
 private struct PhoneMaskResponse: Decodable {
