@@ -13,7 +13,6 @@ protocol ILoginScreenViewController: AnyObject {
 	func showAuthResult(_ success: Bool, errorMessage: String?)
 }
 
-
 // MARK: - View Controller
 final class LoginScreenViewController: UIViewController {
 
@@ -45,7 +44,7 @@ final class LoginScreenViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupUI()
-//		interactor?.fetchPhoneMask()
+		interactor?.fetchPhoneMask()
 	}
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -64,7 +63,7 @@ final class LoginScreenViewController: UIViewController {
 			showAlert(message: "Заполните все поля")
 			return
 		}
-//		interactor?.performLogin(phone: phone, password: password)
+		interactor?.performLogin(phone: phone, password: password)
 	}
 
 	@objc private func togglePasswordVisibility() {
@@ -82,7 +81,7 @@ extension LoginScreenViewController: ILoginScreenViewController {
 
 	func showAuthResult(_ success: Bool, errorMessage: String?) {
 		if success {
-			// Переход на следующий экран
+			print("success")
 		} else {
 			showAlert(message: errorMessage ?? "Ошибка авторизации")
 		}
@@ -125,7 +124,6 @@ private extension LoginScreenViewController {
 
 	func makeTextField() -> UITextField {
 		let textField = UITextField()
-		textField.text = "+7"
 		textField.backgroundColor  = .white
 		textField.keyboardAppearance = .light
 		textField.clearButtonMode = .always

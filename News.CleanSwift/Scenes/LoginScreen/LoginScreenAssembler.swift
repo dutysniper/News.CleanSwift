@@ -17,8 +17,14 @@ final class LoginScreenAssembler: ILoginScreenAssembler {
 	/// - Returns: viewController
 	func assembly() -> LoginScreenViewController {
 		let viewController = LoginScreenViewController()
+		let networkManager = NetworkManager()
+		let keychainManger = KeychainManager()
 		let presenter = LoginScreenPresenter(viewController: viewController)
-		let interactor = LoginScreenInteractor(presenter: presenter)
+		let interactor = LoginScreenInteractor(
+			presenter: presenter,
+			networkManager: networkManager,
+			keychainManager: keychainManger
+		)
 
 		viewController.interactor = interactor
 
