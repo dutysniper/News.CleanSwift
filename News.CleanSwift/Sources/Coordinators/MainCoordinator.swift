@@ -24,7 +24,7 @@ final class MainCoordinator: BaseCoordinator {
 
 	override func start() {
 //		showLoginScreen()
-		showDotaCharactersScreen()
+		showMainScreen()
 	}
 
 	func showLoginScreen() {
@@ -32,8 +32,12 @@ final class MainCoordinator: BaseCoordinator {
 		navigationController.pushViewController(viewController, animated: true)
 	}
 
-	func showDotaCharactersScreen() {
-		let viewController = DotaCharactersScreenAssembler().assembly()
+	func showMainScreen() {
+		let viewController = MainScreenAssembler().assembly(sortClosure: showSortWindow())
 		navigationController.pushViewController(viewController, animated: true)
+	}
+
+	func showSortWindow() {
+
 	}
 }

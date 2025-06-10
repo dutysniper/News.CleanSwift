@@ -29,23 +29,25 @@ final class MainScreenInteractor: IMainScreenInteractor {
 	func fetchCharacters() {
 		networkManager?.fetchChars(completion: { [weak self] result in
 			switch result {
-			case .success(let characters):
-				print(characters.first?.date)
-				print(characters.first?.formattedDate)
+			case .success(let posts):
 				self?.presenter?.presentCharacters(
-					response: MainScreen.Response(
-						characters: characters.sorted { $0.sort < $1.sort },
+					response: MainScreen.Response.Posts(
+						posts: posts.sorted { $0.sort < $1.sort },
 						error: nil)
 				)
 			case .failure(let error):
 				print("failure")
 				self?.presenter?.presentCharacters(
-					response: MainScreen.Response(
-						characters: [],
+					response: MainScreen.Response.Posts(
+						posts: [],
 						error: error)
 				)
 			}
 		})
+	}
+
+	func openSortWindow() {
+		presenter?.presentSortWindow(response: MainScreen.Response.Sort(isSortActive: true))
 	}
 	// MARK: - Private methods
 }

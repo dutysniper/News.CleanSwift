@@ -9,8 +9,14 @@ import Foundation
 
 enum MainScreen {
 	struct Response {
-		let characters: [Post]
-		let error: Error?
+		struct Posts{
+			let posts: [Post]
+			let error: Error?
+		}
+		struct Sort {
+			let isSortActive: Bool
+		}
+
 	}
 	struct ViewModel {
 		let posts: [Post]

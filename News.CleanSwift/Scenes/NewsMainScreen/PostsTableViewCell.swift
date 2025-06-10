@@ -8,10 +8,10 @@
 import UIKit
 import Alamofire
 
-final class DotaCharactersTableViewCell: UITableViewCell {
+final class PostsTableViewCell: UITableViewCell {
 	static let reuseIdentifier = "PostTableViewCell"
 
-	private let characterImageView = UIImageView()
+	private let postImageView = UIImageView()
 	private let titleLabel = UILabel()
 	private let dateLabel = UILabel()
 	private let phraseLabel = UILabel()
@@ -40,20 +40,20 @@ final class DotaCharactersTableViewCell: UITableViewCell {
 		URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
 			if let data = data, let image = UIImage(data: data) {
 				DispatchQueue.main.async {
-					self?.characterImageView.image = image
+					self?.postImageView.image = image
 				}
 			}
 		}.resume()
 	}
 
 	private func setupViews() {
-		[characterImageView, titleLabel, dateLabel, phraseLabel].forEach {
+		[postImageView, titleLabel, dateLabel, phraseLabel].forEach {
 			$0.translatesAutoresizingMaskIntoConstraints = false
 			contentView.addSubview($0)
 		}
 
-		characterImageView.contentMode = .scaleAspectFit
-		characterImageView.clipsToBounds = true
+		postImageView.contentMode = .scaleAspectFit
+		postImageView.clipsToBounds = true
 
 		titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
 		titleLabel.numberOfLines = 0
@@ -62,16 +62,16 @@ final class DotaCharactersTableViewCell: UITableViewCell {
 		dateLabel.textColor = .gray
 
 		phraseLabel.font = UIFont.systemFont(ofSize: 14)
-		phraseLabel.numberOfLines = 0
+		phraseLabel.numberOfLines = 3
 
 		NSLayoutConstraint.activate([
-			characterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-			characterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-			characterImageView.widthAnchor.constraint(equalToConstant: 60),
-			characterImageView.heightAnchor.constraint(equalToConstant: 60),
+			postImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+			postImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			postImageView.widthAnchor.constraint(equalToConstant: 60),
+			postImageView.heightAnchor.constraint(equalToConstant: 60),
 
-			titleLabel.topAnchor.constraint(equalTo: characterImageView.topAnchor),
-			titleLabel.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 12),
+			titleLabel.topAnchor.constraint(equalTo: postImageView.topAnchor),
+			titleLabel.leadingAnchor.constraint(equalTo: postImageView.trailingAnchor, constant: 12),
 			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
 			phraseLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),

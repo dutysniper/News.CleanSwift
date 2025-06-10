@@ -8,31 +8,38 @@
 import Foundation
 
 protocol IMainScreenPresenter {
-	func presentCharacters(response: MainScreen.Response)
+	func presentCharacters(response: MainScreen.Response.Posts)
+	func presentSortWindow(response: MainScreen.Response.Sort)
 }
+
+typealias SortClosure = () -> Bool
 
 final class MainScreenPresenter: IMainScreenPresenter {
 	// MARK: - Public properties
 	// MARK: - Dependencies
 
 	private weak var viewController: IMainScreenViewController?
+	private var sortClosure: SortClosure?
 
 	// MARK: - Private properties
 	// MARK: - Initialization
 
-	init(viewController: IMainScreenViewController?) {
+	init(viewController: IMainScreenViewController?, sortClosure: SortClosure?) {
 		self.viewController = viewController
+		self.sortClosure = sortClosure
 	}
 
 	// MARK: - Public methods
 
-	func presentCharacters(response: MainScreen.Response) {
+	func presentCharacters(response: MainScreen.Response.Posts) {
 		let viewModel = MainScreen.ViewModel(
-			chars: response.characters,
+			posts: response.posts,
 			errorMessage: response.error?.localizedDescription
 		)
 		viewController?.displayCharacters(viewModel: viewModel)
-		print(viewModel.chars.first)
+	}
+	func presentSortWindow(response: MainScreen.Response.Sort) {
+		sortClosure?()
 	}
 
 	// MARK: - Private methods

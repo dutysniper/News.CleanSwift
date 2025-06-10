@@ -23,7 +23,9 @@ final class MainScreenViewController: UIViewController {
 
 	private lazy var charactersTableView = makeTableView()
 	private lazy var refreshControl = makeRefreshControl()
+	private lazy var sortButton = makeButton()
 	private var viewModel: MainScreen.ViewModel?
+	private var timer: Timer?
 
 	// MARK: - Initialization
 
@@ -35,6 +37,10 @@ final class MainScreenViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	deinit {
+		timer?.invalidate()
+	}
+
 	// MARK: - Lifecycle
 
 	override func viewDidLoad() {
@@ -42,6 +48,7 @@ final class MainScreenViewController: UIViewController {
 		super.viewDidLoad()
 		setupUI()
 		fetchData()
+		startAutoRefresh()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -55,6 +62,12 @@ final class MainScreenViewController: UIViewController {
 	private func fetchData() {
 		interactor?.fetchCharacters()
 	}
+
+	private func startAutoRefresh() {
+		timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+			self?.fetchData()
+		}
+	}
 }
 
 //MARK: - IDotaCharactersScreenViewController
@@ -63,6 +76,7 @@ extension MainScreenViewController: IMainScreenViewController {
 	func displayCharacters(viewModel: MainScreen.ViewModel) {
 		self.viewModel = viewModel
 		self.charactersTableView.reloadData()
+		refreshControl.endRefreshing()
 	}
 }
 
@@ -89,8 +103,8 @@ private extension MainScreenViewController {
 	func makeTableView() -> UITableView {
 		let tableView = UITableView()
 		tableView.register(
-			DotaCharactersTableViewCell.self,
-			forCellReuseIdentifier:DotaCharactersTableViewCell.reuseIdentifier
+			PostsTableViewCell.self,
+			forCellReuseIdentifier:PostsTableViewCell.reuseIdentifier
 		)
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -106,8 +120,24 @@ private extension MainScreenViewController {
 		return tableView
 	}
 
-	@objc func refreshData() {
+	func makeButton() -> UIButton {
+		let button = UIButton()
 
+		button.setTitle("По умолчанию ▼", for: .normal)
+		button.setTitleColor(.black, for: .normal)
+		button.addTarget(self, action: #selector(openSortScreen), for: .touchUpInside)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(button)
+
+		return button
+	}
+
+	@objc func openSortScreen() {
+		interactor?.openSortWindow()
+	}
+
+	@objc func refreshData() {
+		fetchData()
 	}
 }
 
@@ -117,7 +147,11 @@ private extension MainScreenViewController {
 	func layout() {
 		NSLayoutConstraint.activate(
 			[
-			charactersTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+			sortButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+			sortButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+
+
+			charactersTableView.topAnchor.constraint(equalTo: sortButton.bottomAnchor, constant: 16),
 			charactersTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
 			charactersTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
 			charactersTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -136,9 +170,9 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(
-			withIdentifier: DotaCharactersTableViewCell.reuseIdentifier,
+			withIdentifier: PostsTableViewCell.reuseIdentifier,
 			for: indexPath
-		) as? DotaCharactersTableViewCell else {
+		) as? PostsTableViewCell else {
 			return UITableViewCell()
 		}
 
