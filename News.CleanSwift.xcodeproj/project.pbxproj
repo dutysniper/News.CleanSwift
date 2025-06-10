@@ -33,6 +33,14 @@
 		91D57E0E2DF6FCE6001DEBAF /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0D2DF6FCE6001DEBAF /* MainScreenModel.swift */; };
 		91D57E102DF6FCF7001DEBAF /* MainScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0F2DF6FCF7001DEBAF /* MainScreenAssembler.swift */; };
 		91D57E122DF70399001DEBAF /* PostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E112DF70399001DEBAF /* PostsTableViewCell.swift */; };
+		91D57E152DF86083001DEBAF /* SortScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E142DF86083001DEBAF /* SortScreenModel.swift */; };
+		91D57E172DF8611E001DEBAF /* SortScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E162DF8611E001DEBAF /* SortScreenViewController.swift */; };
+		91D57E192DF8661A001DEBAF /* SortCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E182DF8661A001DEBAF /* SortCoordinator.swift */; };
+		91D57E1B2DF86652001DEBAF /* SortScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E1A2DF86652001DEBAF /* SortScreenAssembler.swift */; };
+		91D57E1D2DF867A2001DEBAF /* SortScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E1C2DF867A2001DEBAF /* SortScreenInteractor.swift */; };
+		91D57E1F2DF867AE001DEBAF /* SortScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E1E2DF867AE001DEBAF /* SortScreenPresenter.swift */; };
+		91D57E212DF88190001DEBAF /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E202DF88190001DEBAF /* CustomPresentationController.swift */; };
+		91D57E232DF8868A001DEBAF /* SortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +90,14 @@
 		91D57E0D2DF6FCE6001DEBAF /* MainScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
 		91D57E0F2DF6FCF7001DEBAF /* MainScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenAssembler.swift; sourceTree = "<group>"; };
 		91D57E112DF70399001DEBAF /* PostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsTableViewCell.swift; sourceTree = "<group>"; };
+		91D57E142DF86083001DEBAF /* SortScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenModel.swift; sourceTree = "<group>"; };
+		91D57E162DF8611E001DEBAF /* SortScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenViewController.swift; sourceTree = "<group>"; };
+		91D57E182DF8661A001DEBAF /* SortCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCoordinator.swift; sourceTree = "<group>"; };
+		91D57E1A2DF86652001DEBAF /* SortScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenAssembler.swift; sourceTree = "<group>"; };
+		91D57E1C2DF867A2001DEBAF /* SortScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenInteractor.swift; sourceTree = "<group>"; };
+		91D57E1E2DF867AE001DEBAF /* SortScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenPresenter.swift; sourceTree = "<group>"; };
+		91D57E202DF88190001DEBAF /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPresentationController.swift; path = Coordinators/Common/CustomPresentationController.swift; sourceTree = "<group>"; };
+		91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +177,7 @@
 		91D57DE52DF32E02001DEBAF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				91D57E132DF85FE6001DEBAF /* New Group */,
+				91D57E132DF85FE6001DEBAF /* SortScreen */,
 				91D57E062DF6FC03001DEBAF /* NewsMainScreen */,
 				91D57DE62DF32E10001DEBAF /* LoginScreen */,
 			);
@@ -184,6 +200,7 @@
 		91D57DE72DF32E37001DEBAF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				91D57E202DF88190001DEBAF /* CustomPresentationController.swift */,
 				91D57DE92DF32EAC001DEBAF /* Coordinators */,
 				91D57DB52DF32D67001DEBAF /* AppDelegate.swift */,
 				91D57DB72DF32D67001DEBAF /* SceneDelegate.swift */,
@@ -207,6 +224,7 @@
 				91D57DEA2DF32EBA001DEBAF /* Common */,
 				91D57DED2DF32EF3001DEBAF /* AppCoordinator.swift */,
 				91D57DEF2DF32F31001DEBAF /* MainCoordinator.swift */,
+				91D57E182DF8661A001DEBAF /* SortCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -242,11 +260,17 @@
 			path = NewsMainScreen;
 			sourceTree = "<group>";
 		};
-		91D57E132DF85FE6001DEBAF /* New Group */ = {
+		91D57E132DF85FE6001DEBAF /* SortScreen */ = {
 			isa = PBXGroup;
 			children = (
+				91D57E142DF86083001DEBAF /* SortScreenModel.swift */,
+				91D57E162DF8611E001DEBAF /* SortScreenViewController.swift */,
+				91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */,
+				91D57E1A2DF86652001DEBAF /* SortScreenAssembler.swift */,
+				91D57E1C2DF867A2001DEBAF /* SortScreenInteractor.swift */,
+				91D57E1E2DF867AE001DEBAF /* SortScreenPresenter.swift */,
 			);
-			path = "New Group";
+			path = SortScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,16 +411,22 @@
 			files = (
 				91D57E102DF6FCF7001DEBAF /* MainScreenAssembler.swift in Sources */,
 				91D57E022DF451C1001DEBAF /* KeychainManager.swift in Sources */,
+				91D57E1B2DF86652001DEBAF /* SortScreenAssembler.swift in Sources */,
 				91D57DFD2DF44E53001DEBAF /* NetworkManager.swift in Sources */,
 				91D57DF62DF33017001DEBAF /* LoginScreenAssembler.swift in Sources */,
 				91D57E0E2DF6FCE6001DEBAF /* MainScreenModel.swift in Sources */,
 				91D57DBA2DF32D67001DEBAF /* LoginScreenViewController.swift in Sources */,
 				91D57DF02DF32F31001DEBAF /* MainCoordinator.swift in Sources */,
 				91D57E0C2DF6FCB4001DEBAF /* MainScreenPresenter.swift in Sources */,
+				91D57E172DF8611E001DEBAF /* SortScreenViewController.swift in Sources */,
 				91D57DB62DF32D67001DEBAF /* AppDelegate.swift in Sources */,
+				91D57E212DF88190001DEBAF /* CustomPresentationController.swift in Sources */,
 				91D57E122DF70399001DEBAF /* PostsTableViewCell.swift in Sources */,
+				91D57E152DF86083001DEBAF /* SortScreenModel.swift in Sources */,
 				91D57E0A2DF6FC84001DEBAF /* MainScreenInteractor.swift in Sources */,
 				91D57DEE2DF32EF3001DEBAF /* AppCoordinator.swift in Sources */,
+				91D57E1D2DF867A2001DEBAF /* SortScreenInteractor.swift in Sources */,
+				91D57E232DF8868A001DEBAF /* SortTableViewCell.swift in Sources */,
 				91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */,
 				91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */,
 				91D57DEC2DF32ED5001DEBAF /* ICoordinator.swift in Sources */,
@@ -404,6 +434,8 @@
 				91D57DF82DF3374B001DEBAF /* LoginScreenModel.swift in Sources */,
 				91D57DF42DF32FDF001DEBAF /* LoginScreenPresenter.swift in Sources */,
 				91D57DB82DF32D67001DEBAF /* SceneDelegate.swift in Sources */,
+				91D57E192DF8661A001DEBAF /* SortCoordinator.swift in Sources */,
+				91D57E1F2DF867AE001DEBAF /* SortScreenPresenter.swift in Sources */,
 				91D57E082DF6FC5A001DEBAF /* MainScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
