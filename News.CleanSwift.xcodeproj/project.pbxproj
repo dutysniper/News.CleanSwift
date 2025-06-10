@@ -27,6 +27,12 @@
 		91D57E002DF44F21001DEBAF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 91D57DFF2DF44F21001DEBAF /* Alamofire */; };
 		91D57E022DF451C1001DEBAF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E012DF451C1001DEBAF /* KeychainManager.swift */; };
 		91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */; };
+		91D57E082DF6FC5A001DEBAF /* DotaCharactersScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E072DF6FC5A001DEBAF /* DotaCharactersScreenViewController.swift */; };
+		91D57E0A2DF6FC84001DEBAF /* DotaCharactersScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E092DF6FC84001DEBAF /* DotaCharactersScreenInteractor.swift */; };
+		91D57E0C2DF6FCB4001DEBAF /* DotaCharactersScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0B2DF6FCB4001DEBAF /* DotaCharactersScreenPresenter.swift */; };
+		91D57E0E2DF6FCE6001DEBAF /* DotaCharactersScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0D2DF6FCE6001DEBAF /* DotaCharactersScreenModel.swift */; };
+		91D57E102DF6FCF7001DEBAF /* DotaCharactersScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0F2DF6FCF7001DEBAF /* DotaCharactersScreenAssembler.swift */; };
+		91D57E122DF70399001DEBAF /* DotaCharactersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E112DF70399001DEBAF /* DotaCharactersTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,12 @@
 		91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		91D57E012DF451C1001DEBAF /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
+		91D57E072DF6FC5A001DEBAF /* DotaCharactersScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersScreenViewController.swift; sourceTree = "<group>"; };
+		91D57E092DF6FC84001DEBAF /* DotaCharactersScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersScreenInteractor.swift; sourceTree = "<group>"; };
+		91D57E0B2DF6FCB4001DEBAF /* DotaCharactersScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersScreenPresenter.swift; sourceTree = "<group>"; };
+		91D57E0D2DF6FCE6001DEBAF /* DotaCharactersScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersScreenModel.swift; sourceTree = "<group>"; };
+		91D57E0F2DF6FCF7001DEBAF /* DotaCharactersScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersScreenAssembler.swift; sourceTree = "<group>"; };
+		91D57E112DF70399001DEBAF /* DotaCharactersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotaCharactersTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +161,7 @@
 		91D57DE52DF32E02001DEBAF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				91D57E062DF6FC03001DEBAF /* NewsMainScreen */,
 				91D57DE62DF32E10001DEBAF /* LoginScreen */,
 			);
 			path = Scenes;
@@ -213,6 +226,19 @@
 				91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		91D57E062DF6FC03001DEBAF /* NewsMainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				91D57E072DF6FC5A001DEBAF /* DotaCharactersScreenViewController.swift */,
+				91D57E092DF6FC84001DEBAF /* DotaCharactersScreenInteractor.swift */,
+				91D57E0B2DF6FCB4001DEBAF /* DotaCharactersScreenPresenter.swift */,
+				91D57E0D2DF6FCE6001DEBAF /* DotaCharactersScreenModel.swift */,
+				91D57E0F2DF6FCF7001DEBAF /* DotaCharactersScreenAssembler.swift */,
+				91D57E112DF70399001DEBAF /* DotaCharactersTableViewCell.swift */,
+			);
+			path = NewsMainScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,12 +377,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D57E102DF6FCF7001DEBAF /* DotaCharactersScreenAssembler.swift in Sources */,
 				91D57E022DF451C1001DEBAF /* KeychainManager.swift in Sources */,
 				91D57DFD2DF44E53001DEBAF /* NetworkManager.swift in Sources */,
 				91D57DF62DF33017001DEBAF /* LoginScreenAssembler.swift in Sources */,
+				91D57E0E2DF6FCE6001DEBAF /* DotaCharactersScreenModel.swift in Sources */,
 				91D57DBA2DF32D67001DEBAF /* LoginScreenViewController.swift in Sources */,
 				91D57DF02DF32F31001DEBAF /* MainCoordinator.swift in Sources */,
+				91D57E0C2DF6FCB4001DEBAF /* DotaCharactersScreenPresenter.swift in Sources */,
 				91D57DB62DF32D67001DEBAF /* AppDelegate.swift in Sources */,
+				91D57E122DF70399001DEBAF /* DotaCharactersTableViewCell.swift in Sources */,
+				91D57E0A2DF6FC84001DEBAF /* DotaCharactersScreenInteractor.swift in Sources */,
 				91D57DEE2DF32EF3001DEBAF /* AppCoordinator.swift in Sources */,
 				91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */,
 				91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */,
@@ -365,6 +396,7 @@
 				91D57DF82DF3374B001DEBAF /* LoginScreenModel.swift in Sources */,
 				91D57DF42DF32FDF001DEBAF /* LoginScreenPresenter.swift in Sources */,
 				91D57DB82DF32D67001DEBAF /* SceneDelegate.swift in Sources */,
+				91D57E082DF6FC5A001DEBAF /* DotaCharactersScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

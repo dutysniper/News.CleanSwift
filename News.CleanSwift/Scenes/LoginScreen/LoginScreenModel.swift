@@ -11,8 +11,8 @@ enum LoginScreen {
 	enum PhoneMask {
 		struct Request {}
 		struct Response {
-			let phoneMask: String
 			let formattedPhone: String?
+			let shouldUpdateMask: Bool
 		}
 		struct ViewModel {
 			let phoneMask: String

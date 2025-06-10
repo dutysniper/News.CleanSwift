@@ -9,9 +9,10 @@ import UIKit
 
 // MARK: - Protocols
 protocol ILoginScreenViewController: AnyObject {
-	func updatePhoneMask(_ mask: String)
-	func showAuthResult(_ success: Bool, errorMessage: String?)
-	func displayPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel)
+	func updatePhoneMask()
+	func setPhoneNumber(_ phone: String)
+	func showAuthResult(_ success: Bool)
+	func showAuthError(_ message: String)
 }
 
 // MARK: - View Controller
@@ -27,6 +28,8 @@ final class LoginScreenViewController: UIViewController {
 	private lazy var passwordTextField = makeSecureTextField()
 	private lazy var loginButton = makeButton()
 
+	private var isInitialLoad = true
+	
 
 	// MARK: - Initialization
 
@@ -46,16 +49,28 @@ final class LoginScreenViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupUI()
-		interactor?.fetchPhoneMask()
+		phoneTextField.text = interactor?.getNumberPrefix() ?? "+7"
+
 	}
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		setupConstraints()
+		interactor?.fetchPhoneMaskIfNeeded()
+		if let prefix = interactor?.getNumberPrefix() {
+			phoneTextField.text = prefix
+		}
+
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+//		if isInitialLoad {
+//			interactor?.fetchPhoneMaskIfNeeded()
+//			isInitialLoad = false
+//		}
+
 		phoneTextField.becomeFirstResponder()
+
 	}
 
 	// MARK: - Actions
@@ -77,6 +92,29 @@ final class LoginScreenViewController: UIViewController {
 
 // MARK: - ILoginScreenViewController
 extension LoginScreenViewController: ILoginScreenViewController {
+	func updatePhoneMask() {
+
+	}
+	
+	func setPhoneNumber(_ phone: String) {
+		// Если номер не начинается с префикса, добавляем его
+		let formattedPhone = phone.hasPrefix(interactor?.getNumberPrefix() ?? "") ? phone : (interactor?.getNumberPrefix() ?? "") + phone
+		phoneTextField.text = formattedPhone
+
+		DispatchQueue.main.async {
+			let endPosition = self.phoneTextField.endOfDocument
+			self.phoneTextField.selectedTextRange = self.phoneTextField.textRange(from: endPosition, to: endPosition)
+		}
+	}
+
+	func showAuthResult(_ success: Bool) {
+		print("Success login")
+	}
+	
+	func showAuthError(_ message: String) {
+		print("Auth error")
+	}
+	
 	func updatePhoneMask(_ mask: String) {
 		phoneTextField.placeholder = mask
 	}
@@ -141,6 +179,7 @@ private extension LoginScreenViewController {
 			clearButton.tintColor = .lightGray
 
 		}
+		textField.text = interactor?.getNumberPrefix() ?? "+7"
 		textField.borderStyle = .roundedRect
 		textField.layer.borderWidth = 1
 		textField.layer.borderColor = UIColor.lightGray.cgColor
@@ -242,7 +281,6 @@ private extension LoginScreenViewController {
 }
 
 extension LoginScreenViewController: UITextFieldDelegate {
-	// Обработка ввода телефона
 	func textField(_ textField: UITextField,
 				   shouldChangeCharactersIn range: NSRange,
 				   replacementString string: String) -> Bool {
@@ -250,20 +288,43 @@ extension LoginScreenViewController: UITextFieldDelegate {
 		guard textField == phoneTextField else { return true }
 
 		let currentText = textField.text ?? ""
-		let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+		let proposedText: String
 
-		// Запрашиваем у Interactor отформатированный номер
-		let formattedText = interactor?.formatPhoneNumber(newText) ?? newText
+		// Обработка удаления
+		if range.length > 0 {
+			let newText = (currentText as NSString).replacingCharacters(in: range, with: "")
+			proposedText = newText.isEmpty ? interactor?.getNumberPrefix() ?? "+7" : newText
+		}
+		// Обработка ввода
+		else {
+			// Разрешаем только цифры
+			guard string.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil else {
+				return false
+			}
 
-		textField.text = formattedText
+			// Если текст только префикс, заменяем его
+			if currentText == interactor?.getNumberPrefix() {
+				proposedText = currentText + string
+			} else {
+				proposedText = currentText + string
+			}
+		}
 
-		// Позиционирование курсора
+		// Форматируем
+		let formatted = interactor?.formatPhoneNumber(proposedText) ?? proposedText
+		textField.text = formatted
+
+		// Позиционируем курсор
 		DispatchQueue.main.async {
-			let position = textField.position(from: textField.beginningOfDocument,
-											  offset: formattedText.count) ?? textField.endOfDocument
-			textField.selectedTextRange = textField.textRange(from: position, to: position)
+			let endPosition = textField.endOfDocument
+			textField.selectedTextRange = textField.textRange(from: endPosition, to: endPosition)
 		}
 
 		return false
+	}
+
+	private func updateCursorPosition(in textField: UITextField, for text: String) {
+		let endPosition = textField.endOfDocument
+		textField.selectedTextRange = textField.textRange(from: endPosition, to: endPosition)
 	}
 }

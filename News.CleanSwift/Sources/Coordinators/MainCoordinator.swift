@@ -23,11 +23,17 @@ final class MainCoordinator: BaseCoordinator {
 	// MARK: - Internal methods
 
 	override func start() {
-		showLoginScreen()
+//		showLoginScreen()
+		showDotaCharactersScreen()
 	}
 
 	func showLoginScreen() {
 		let viewController = LoginScreenAssembler().assembly()
+		navigationController.pushViewController(viewController, animated: true)
+	}
+
+	func showDotaCharactersScreen() {
+		let viewController = DotaCharactersScreenAssembler().assembly()
 		navigationController.pushViewController(viewController, animated: true)
 	}
 }

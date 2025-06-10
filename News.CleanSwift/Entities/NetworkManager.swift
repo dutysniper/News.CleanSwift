@@ -8,21 +8,20 @@ import Foundation
 import Alamofire
 
 protocol INetworkManager {
-	func getPhoneMask(completion: @escaping (Result<String, Error>) -> Void)
+	func fetchPhoneMask(completion: @escaping (Result<String, Error>) -> Void)
 	func login(phone: String, password: String, completion: @escaping (Result<Bool, Error>) -> Void)
+	func fetchChars(completion: @escaping (Result<[Post], Error>) -> Void)
 }
 
 final class NetworkManager: INetworkManager {
 	private let baseURL = "http://dev-exam.l-tech.ru/api/v1"
 
-	func getPhoneMask(completion: @escaping (Result<String, Error>) -> Void) {
+	func fetchPhoneMask(completion: @escaping (Result<String, Error>) -> Void) {
 		AF.request("\(baseURL)/phone_masks")
 			.validate()
 			.responseDecodable(of: PhoneMaskResponse.self) { response in
 				switch response.result {
 				case .success(let data):
-					print("success fetch phone mask")
-					print("mask: \(data.phoneMask)")
 					completion(.success(data.phoneMask))
 				case .failure(let error):
 					completion(.failure(error))
@@ -52,7 +51,6 @@ final class NetworkManager: INetworkManager {
 
 			switch response.result {
 			case .success(let data):
-				print("Login success: \(data.success)")
 				completion(.success(data.success))
 			case .failure(let error):
 				print("Login error: \(error.localizedDescription)")
@@ -71,6 +69,21 @@ final class NetworkManager: INetworkManager {
 				}
 			}
 		}
+	}
+
+	func fetchChars(completion: @escaping (Result<[Post], Error>) -> Void) {
+		AF.request("\(baseURL)/posts")
+			.validate()
+			.responseDecodable(of: [Post].self) { response in
+				switch response.result {
+				case .success(let chars):
+					completion(.success(chars))
+					print("NM Success")
+				case .failure(let error):
+					completion(.failure(error))
+					print(error)
+				}
+			}
 	}
 
 	private func errorMessage(for statusCode: Int) -> String {
