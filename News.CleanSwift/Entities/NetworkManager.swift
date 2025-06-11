@@ -4,13 +4,14 @@
 //
 //  Created by Константин Натаров on 07.06.2025.
 //
-import Foundation
+import UIKit
 import Alamofire
 
 protocol INetworkManager {
 	func fetchPhoneMask(completion: @escaping (Result<String, Error>) -> Void)
 	func login(phone: String, password: String, completion: @escaping (Result<Bool, Error>) -> Void)
 	func fetchChars(completion: @escaping (Result<[Post], Error>) -> Void)
+	func loadImage(from urlString: String, completion: @escaping (Data?) -> Void)
 }
 
 final class NetworkManager: INetworkManager {
@@ -87,6 +88,30 @@ final class NetworkManager: INetworkManager {
 			}
 	}
 
+	func loadImage(from urlString: String, completion: @escaping (Data?) -> Void) {
+		let baseURL = "http://dev-exam.l-tech.ru"
+		guard let url = URL(string: baseURL + urlString) else {
+			completion(nil)
+			return
+		}
+
+		AF.request(url).responseData { response in
+			switch response.result {
+			case .success(let data):
+				completion(data)
+			case .failure(let error):
+				print("Ошибка загрузки изображения: \(error.localizedDescription)")
+				completion(nil)
+			}
+		}
+	}
+
+	func loadImage(from string: String) {
+		let baseURL = "http://dev-exam.l-tech.ru"
+		guard let url = URL(string: baseURL + string) else { return }
+
+	}
+
 	private func errorMessage(for statusCode: Int) -> String {
 		switch statusCode {
 			case 400: return "Неверный запрос"
@@ -94,6 +119,8 @@ final class NetworkManager: INetworkManager {
 			default: return "Ошибка сервера"
 		}
 	}
+
+	
 }
 
 // MARK: - Response Models

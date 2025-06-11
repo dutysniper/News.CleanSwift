@@ -62,7 +62,7 @@ final class PostsTableViewCell: UITableViewCell {
 		dateLabel.textColor = .gray
 
 		phraseLabel.font = UIFont.systemFont(ofSize: 14)
-		phraseLabel.numberOfLines = 3
+		phraseLabel.numberOfLines = 0
 
 		NSLayoutConstraint.activate([
 			postImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
