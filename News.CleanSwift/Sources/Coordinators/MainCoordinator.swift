@@ -33,8 +33,12 @@ final class MainCoordinator: BaseCoordinator {
 	}
 
 	func showMainScreen() {
-		let viewController = MainScreenAssembler().assembly(sortClosure: showSortWindow())
+		let viewController = MainScreenAssembler().assembly(sortClosure: showSortWindow(), detailClosure: showDetailScreen(with:))
 		navigationController.pushViewController(viewController, animated: true)
+	}
+
+	func showDetailScreen(with viewModel: Post) {
+		let viewController = DetalScreenAssembler().assembly(with: viewModel)
 	}
 
 	func showSortWindow() -> SortClosure {

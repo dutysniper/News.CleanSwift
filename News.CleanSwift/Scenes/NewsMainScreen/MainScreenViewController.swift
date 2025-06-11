@@ -21,7 +21,7 @@ final class MainScreenViewController: UIViewController {
 
 	// MARK: - Dependencies
 
-	var interactor:  MainScreenInteractor?
+	var interactor:  IMainScreenInteractor?
 
 	// MARK: - Private properties
 
@@ -271,5 +271,16 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 			cell.configure(with: viewModel.postsWithSort[indexPath.row])
 		}
 		return cell
+	}
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		print("didSelectRow")
+		switch sortType {
+		case .defaultByServer:
+			guard let viewModel = viewModel?.posts[indexPath.row] else { return }
+			interactor?.openDetailWindow(with: viewModel)
+		case .byDate:
+			guard let viewModel = viewModel?.postsWithSort[indexPath.row] else { return }
+			interactor?.openDetailWindow(with: viewModel)
+		}
 	}
 }

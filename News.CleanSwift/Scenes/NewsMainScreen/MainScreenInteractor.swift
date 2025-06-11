@@ -10,6 +10,8 @@ import Foundation
 protocol IMainScreenInteractor {
 	func fetchCharacters()
 	func apply(sort: SortScreen.SortType)
+	func openSortWindow()
+	func openDetailWindow(with viewModel: Post)
 }
 
 final class MainScreenInteractor: IMainScreenInteractor {
@@ -60,9 +62,13 @@ final class MainScreenInteractor: IMainScreenInteractor {
 	}
 
 	func openSortWindow() {
+		print("interactor: openSortWindow")
 		presenter?.presentSortWindow(response: MainScreen.Response.Sort(isSortActive: true))
 	}
 
+	func openDetailWindow(with viewModel: Post) {
+		presenter?.presentDetailScreen(response: viewModel)
+	}
 	func apply(sort: SortScreen.SortType) {
 		presenter?.presentSortPosts(sort: sort)
 	}

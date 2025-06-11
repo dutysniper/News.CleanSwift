@@ -12,10 +12,10 @@ final class MainScreenAssembler {
 	/// Сборка модуля авторизации
 	/// - Parameter loginResultClosure: замыкание оповещающие о результате авторизации
 	/// - Returns: viewController
-	func assembly(sortClosure: @escaping SortClosure) -> MainScreenViewController {
+	func assembly(sortClosure: @escaping SortClosure, detailClosure: @escaping DetailClosure) -> MainScreenViewController {
 		let viewController = MainScreenViewController()
 		let networkManager = NetworkManager()
-		let presenter = MainScreenPresenter(viewController: viewController, sortClosure: sortClosure)
+		let presenter = MainScreenPresenter(viewController: viewController, sortClosure: sortClosure, detailClosure: detailClosure)
 		let interactor = MainScreenInteractor(
 			presenter: presenter,
 			networkManager: networkManager

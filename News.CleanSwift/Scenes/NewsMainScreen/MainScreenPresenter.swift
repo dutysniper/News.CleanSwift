@@ -11,9 +11,11 @@ protocol IMainScreenPresenter {
 	func presentCharacters(response: MainScreen.Response.Posts)
 	func presentSortWindow(response: MainScreen.Response.Sort)
 	func presentSortPosts(sort: SortScreen.SortType)
+	func presentDetailScreen(response: Post)
 }
 
 typealias SortClosure = () -> Bool
+typealias DetailClosure = (_ viewModel: Post) -> ()
 
 final class MainScreenPresenter: IMainScreenPresenter {
 	// MARK: - Public properties
@@ -21,13 +23,15 @@ final class MainScreenPresenter: IMainScreenPresenter {
 
 	private weak var viewController: IMainScreenViewController?
 	private var sortClosure: SortClosure?
+	private var detailClosure: DetailClosure?
 
 	// MARK: - Private properties
 	// MARK: - Initialization
 
-	init(viewController: IMainScreenViewController?, sortClosure: SortClosure?) {
+	init(viewController: IMainScreenViewController?, sortClosure: SortClosure?, detailClosure: DetailClosure?) {
 		self.viewController = viewController
 		self.sortClosure = sortClosure
+		self.detailClosure = detailClosure
 	}
 
 	// MARK: - Public methods
@@ -53,7 +57,12 @@ final class MainScreenPresenter: IMainScreenPresenter {
 		}
 	}
 	func presentSortWindow(response: MainScreen.Response.Sort) {
+		print("presenter: presentSortWindow ")
 		sortClosure?()
+	}
+
+	func presentDetailScreen(response: Post) {
+		detailClosure?(response)
 	}
 
 	func presentSortPosts(sort: SortScreen.SortType) {
