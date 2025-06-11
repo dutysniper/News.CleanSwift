@@ -10,6 +10,7 @@ import Foundation
 protocol IMainScreenPresenter {
 	func presentCharacters(response: MainScreen.Response.Posts)
 	func presentSortWindow(response: MainScreen.Response.Sort)
+	func presentSortPosts(sort: SortScreen.SortType)
 }
 
 typealias SortClosure = () -> Bool
@@ -40,6 +41,11 @@ final class MainScreenPresenter: IMainScreenPresenter {
 	}
 	func presentSortWindow(response: MainScreen.Response.Sort) {
 		sortClosure?()
+	}
+
+	func presentSortPosts(sort: SortScreen.SortType) {
+		
+		viewController?.toggleSortType(sortType: sort)
 	}
 
 	// MARK: - Private methods

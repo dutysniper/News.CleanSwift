@@ -21,6 +21,12 @@ enum MainScreen {
 	struct ViewModel {
 		let posts: [Post]
 		let errorMessage: String?
+		var postsWithSort: [Post] {
+			let posts = posts.sorted { post1, post2 in
+				post1.date > post2.date
+			}
+			return posts
+		}
 	}
 }
 

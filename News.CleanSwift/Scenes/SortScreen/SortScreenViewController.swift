@@ -47,6 +47,7 @@ final class SortScreenViewController: UIViewController {
 
 	init(selectedType: SortScreen.SortType, onDismiss: @escaping (SortScreen.SortType) -> Void) {
 		self.selectedType = selectedType
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -112,6 +113,7 @@ extension SortScreenViewController {
 		tableView.dataSource = self
 		tableView.separatorStyle = .none
 		tableView.translatesAutoresizingMaskIntoConstraints = false
+		
 		return tableView
 	}
 }

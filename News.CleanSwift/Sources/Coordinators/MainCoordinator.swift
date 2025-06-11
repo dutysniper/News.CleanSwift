@@ -45,19 +45,27 @@ final class MainCoordinator: BaseCoordinator {
 	}
 
 	func showSortScreen() {
+		guard let mainVC = navigationController.viewControllers.last as? MainScreenViewController else { return }
+
 		let coordinator = SortCoordinator(
 			navigationController: navigationController,
 			onSortSelected: { [weak self] sortType in
 				self?.handleSortSelection(sortType)
-			}
+				if let coordinator = self?.childCoordinators.first(where: { $0 is SortCoordinator }) {
+					self?.removeDependency(coordinator)
+				}
+			},
+			initialSortType: mainVC.sortType
 		)
 		addDependency(coordinator)
 		coordinator.start()
 	}
 
-	private func handleSortSelection(_ sortType: SortScreen.SortType) {
 
-//		guard let mainVC = navigationController.viewControllers.last as? MainScreenViewController else { return }
-//		mainVC.applySort(type: sortType)
+	private func handleSortSelection(_ sortType: SortScreen.SortType) {
+		print("handleSortSelection called with: \(sortType)") 
+		guard let mainVC = navigationController.viewControllers.last as? MainScreenViewController else { return }
+		mainVC.interactor?.apply(sort: sortType)
+		
 	}
 }

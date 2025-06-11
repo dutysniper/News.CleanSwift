@@ -9,11 +9,14 @@ import UIKit
 
 protocol IMainScreenViewController: AnyObject {
 	func displayCharacters(viewModel: MainScreen.ViewModel)
+	func toggleSortType(sortType: SortScreen.SortType)
 }
 
 final class MainScreenViewController: UIViewController {
 
 	// MARK: - Public properties
+
+	var sortType = SortScreen.SortType.defaultByServer
 
 	// MARK: - Dependencies
 
@@ -73,6 +76,11 @@ final class MainScreenViewController: UIViewController {
 //MARK: - IDotaCharactersScreenViewController
 
 extension MainScreenViewController: IMainScreenViewController {
+	func toggleSortType(sortType: SortScreen.SortType) {
+		self.sortType = sortType
+		charactersTableView.reloadData()
+	}
+	
 	func displayCharacters(viewModel: MainScreen.ViewModel) {
 		self.viewModel = viewModel
 		self.charactersTableView.reloadData()
@@ -122,8 +130,12 @@ private extension MainScreenViewController {
 
 	func makeButton() -> UIButton {
 		let button = UIButton()
-
-		button.setTitle("По умолчанию ▼", for: .normal)
+		switch sortType {
+		case .defaultByServer:
+			button.setTitle("По умолчанию ▼", for: .normal)
+		case .byDate:
+			button.setTitle("По дате ▼", for: .normal)
+		}
 		button.setTitleColor(.black, for: .normal)
 		button.addTarget(self, action: #selector(openSortScreen), for: .touchUpInside)
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -165,6 +177,7 @@ private extension MainScreenViewController {
 extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		guard let viewModel = viewModel else { return 0 }
+		
 		return viewModel.posts.count
 	}
 	
@@ -177,8 +190,13 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		guard let viewModel = viewModel else { return UITableViewCell() }
-		cell.configure(with: viewModel.posts[indexPath.row])
-
+		
+		switch sortType {
+		case .defaultByServer:
+			cell.configure(with: viewModel.posts[indexPath.row])
+		case .byDate:
+			cell.configure(with: viewModel.postsWithSort[indexPath.row])
+		}
 		return cell
 	}
 }
