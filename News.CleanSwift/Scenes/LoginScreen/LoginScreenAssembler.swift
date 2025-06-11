@@ -15,11 +15,11 @@ final class LoginScreenAssembler: ILoginScreenAssembler {
 	/// Сборка модуля авторизации
 	/// - Parameter loginResultClosure: замыкание оповещающие о результате авторизации
 	/// - Returns: viewController
-	func assembly() -> LoginScreenViewController {
+	func assembly(loginClosure: @escaping LoginClosure) -> LoginScreenViewController {
 		let viewController = LoginScreenViewController()
 		let networkManager = NetworkManager()
 		let keychainManger = KeychainManager()
-		let presenter = LoginScreenPresenter(viewController: viewController)
+		let presenter = LoginScreenPresenter(viewController: viewController, loginClosure: loginClosure)
 		let interactor = LoginScreenInteractor(
 			presenter: presenter,
 			networkManager: networkManager,

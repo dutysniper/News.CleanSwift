@@ -13,6 +13,8 @@ protocol ILoginScreenPresenter {
 	func presentAuthError(_ message: String)
 }
 
+typealias LoginClosure = () -> ()
+
 final class LoginScreenPresenter: ILoginScreenPresenter {
 
 	// MARK: - Public properties
@@ -21,10 +23,12 @@ final class LoginScreenPresenter: ILoginScreenPresenter {
 	private weak var viewController: ILoginScreenViewController?
 
 	// MARK: - Private properties
+	private var loginClosure: LoginClosure?
 	// MARK: - Initialization
 
-	init(viewController: ILoginScreenViewController?) {
+	init(viewController: ILoginScreenViewController?, loginClosure: LoginClosure?) {
 		self.viewController = viewController
+		self.loginClosure = loginClosure
 	}
 
 	// MARK: - Lifecycle
@@ -38,11 +42,17 @@ final class LoginScreenPresenter: ILoginScreenPresenter {
 	}
 
 	func presentAuthResult(_ success: Bool, errorMessage: String? = nil) {
-		viewController?.showAuthResult(success, errorMessage: errorMessage)
+		switch success {
+		case true:
+			print("success")
+			loginClosure?()
+		case false:
+			viewController?.showAuthError()
+		}
 	}
 
 	func presentAuthError(_ message: String) {
-		viewController?.showAuthError(message)
+		viewController?.showAuthError()
 	}
 
 	// MARK: - Private methods

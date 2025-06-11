@@ -23,8 +23,6 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 
 	// MARK: - Private properties
 
-	private var isMaskLoaded = false
-
 	// MARK: - Initialization
 	
 	init(presenter: ILoginScreenPresenter?, networkManager: INetworkManager?, keychainManager: IKeychainManager) {
@@ -46,7 +44,6 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 
 				case .failure(let error):
 					print("Failed to load phone mask: \(error)")
-					// Используем маску по умолчанию
 				}
 			}
 		}
@@ -54,22 +51,21 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 
 
 	func performLogin(phone: String, password: String) {
-//		let cleanPhone = phoneNumberFormatter?.cleanNumber(from: phone) ?? phone
-//
-//		networkManager?.login(phone: cleanPhone, password: password) { [weak self] result in
-//			DispatchQueue.main.async {
-//				switch result {
-//				case .success(let success):
-//					if success {
-//						// Сохраняем данные в keychain при успешной авторизации
+		networkManager?.login(phone: phone, password: password) { [weak self] result in
+			DispatchQueue.main.async {
+				switch result {
+				case .success(let success):
+					if success {
+						print("Success")
+						// Сохраняем данные в keychain при успешной авторизации
 //						self?.keychainManager?.saveCredentials(phone: phone, password: password)
-//					}
-//					self?.presenter?.presentAuthResult(success, errorMessage: nil)
-//				case .failure(let error):
-//					self?.presenter?.presentAuthResult(false, errorMessage: error.localizedDescription)
-//				}
-//			}
-//		}
+					}
+					self?.presenter?.presentAuthResult(success, errorMessage: nil)
+				case .failure(let error):
+					self?.presenter?.presentAuthResult(false, errorMessage: error.localizedDescription)
+				}
+			}
+		}
 	}
 	// MARK: - Private methods
 }

@@ -43,4 +43,8 @@ extension String {
 
 		return result
 	}
+
+	func digitsOnly() -> String {
+		return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+	}
 }

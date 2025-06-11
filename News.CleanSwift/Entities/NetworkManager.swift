@@ -34,6 +34,7 @@ final class NetworkManager: INetworkManager {
 			"phone": phone,
 			"password": password
 		]
+		print("ПАРАМЕТРЫ \(parameters)")
 
 		let headers: HTTPHeaders = [
 			"Content-Type": "application/x-www-form-urlencoded",

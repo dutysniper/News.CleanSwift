@@ -12,7 +12,7 @@ protocol ILoginScreenViewController: AnyObject {
 	func fetchMask()
 	func showAuthResult(_ success: Bool)
 	func showAuthResult(_ success: Bool, errorMessage: String?)
-	func showAuthError(_ message: String)
+	func showAuthError()
 	func setPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel)
 }
 
@@ -25,6 +25,7 @@ final class LoginScreenViewController: UIViewController {
 	private lazy var enterLabel = makeLabel(with: "Вход в аккаунт")
 	private lazy var phoneLabel = makeLabel(with: "Телефон")
 	private lazy var passwordLabel = makeLabel(with: "Пароль")
+	private lazy var errorLabel = makeLabel(with: "Неверный пароль")
 	private lazy var phoneTextField = makeTextField()
 	private lazy var passwordTextField = makeSecureTextField()
 	private lazy var loginButton = makeButton()
@@ -68,8 +69,17 @@ final class LoginScreenViewController: UIViewController {
 	}
 
 	private func loadSavedCredentials() {
-		// Этот метод будет вызван через presenter после загрузки маски
-		// Не нужно вызывать здесь напрямую
+
+	}
+	private func updateLoginButtonState() {
+		let phoneNotEmpty = !(phoneTextField.text?.isEmpty ?? true)
+		let passwordNotEmpty = !(passwordTextField.text?.isEmpty ?? true)
+
+		UIView.animate(withDuration: 0.3) {
+			self.loginButton.alpha = (phoneNotEmpty && passwordNotEmpty) ? 1.0 : 0.5
+			self.loginButton.isEnabled = (phoneNotEmpty && passwordNotEmpty)
+			self.loginButton.backgroundColor = .blue
+		}
 	}
 
 	// MARK: - Actions
@@ -79,13 +89,17 @@ final class LoginScreenViewController: UIViewController {
 			showAlert(message: "Заполните все поля")
 			return
 		}
-		interactor?.performLogin(phone: phone, password: password)
+		interactor?.performLogin(phone: phone.digitsOnly(), password: password)
 	}
 
 	@objc private func togglePasswordVisibility() {
 		passwordTextField.isSecureTextEntry.toggle()
 		let imageName = passwordTextField.isSecureTextEntry ? "eye.slash" : "eye"
 		eyeButton.setImage(UIImage(systemName: imageName), for: .normal)
+	}
+
+	@objc private func textFieldDidChange(_ textField: UITextField) {
+		updateLoginButtonState()
 	}
 }
 
@@ -99,8 +113,15 @@ extension LoginScreenViewController: ILoginScreenViewController {
 		print("Success login")
 	}
 	
-	func showAuthError(_ message: String) {
+	func showAuthError() {
 		print("Auth error")
+		errorLabel.isHidden.toggle()
+		passwordTextField.layer.borderColor = .init(red: 1, green: 0, blue: 0, alpha: 1)
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+			self?.errorLabel.isHidden = true
+			self?.passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
+		}
 	}
 
 	func showAuthResult(_ success: Bool, errorMessage: String?) {
@@ -145,12 +166,15 @@ private extension LoginScreenViewController {
 		passwordTextField.rightViewMode = .always
 		eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
 		loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+		phoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+		passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
 		// Устанавливаем делегат для обработки ввода
 		phoneTextField.delegate = self
+		passwordTextField.delegate = self
 
 		[companyLogo, enterLabel, phoneLabel, phoneTextField,
-		 passwordLabel, passwordTextField, loginButton].forEach {
+		 passwordLabel, passwordTextField, loginButton, errorLabel].forEach {
 			$0.translatesAutoresizingMaskIntoConstraints = false
 			view.addSubview($0)
 		}
@@ -166,10 +190,22 @@ private extension LoginScreenViewController {
 	func makeLabel(with text: String) -> UILabel {
 		let label = UILabel()
 		label.text = text
-		label.textColor = .black
-		label.font = text == "Вход в аккаунт"
-		? .systemFont(ofSize: 20, weight: .semibold)
-		: .systemFont(ofSize: 17, weight: .medium)
+		switch text {
+		case "Вход в аккаунт":
+			label.font = .systemFont(ofSize: 20, weight: .semibold)
+			label.textColor = .black
+		case "Неверный пароль":
+			label.font = .systemFont(ofSize: 14, weight: .light)
+			label.textColor = .red
+			label.isHidden = true
+		default:
+			label.font = .systemFont(ofSize: 17, weight: .medium)
+			label.textColor = .black
+		}
+
+//		label.font = text == "Вход в аккаунт"
+//		? .systemFont(ofSize: 20, weight: .semibold)
+//		: .systemFont(ofSize: 17, weight: .medium)
 		return label
 	}
 
@@ -185,7 +221,6 @@ private extension LoginScreenViewController {
 
 		}
 
-		textField.borderStyle = .roundedRect
 		textField.layer.borderWidth = 1
 		textField.layer.borderColor = UIColor.lightGray.cgColor
 		textField.layer.cornerRadius = 16
@@ -203,7 +238,6 @@ private extension LoginScreenViewController {
 		textField.autocapitalizationType = .none
 		textField.backgroundColor  = .white
 		textField.textColor = .black
-		textField.borderStyle = .roundedRect
 		textField.layer.borderWidth = 1
 		textField.layer.borderColor = UIColor.lightGray.cgColor
 		textField.layer.cornerRadius = 16
@@ -227,7 +261,8 @@ private extension LoginScreenViewController {
 	func makeButton() -> UIButton {
 		let button = UIButton()
 		button.setTitle("Войти", for: .normal)
-		button.backgroundColor = UIColor(red: 185/255.0, green: 212/255.0, blue: 249/255.0, alpha: 1.0)
+		button.backgroundColor = .blue
+		button.alpha = 0.5
 		button.layer.cornerRadius = 16
 		button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
 		return button
@@ -269,6 +304,9 @@ private extension LoginScreenViewController {
 			passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 			passwordTextField.heightAnchor.constraint(equalToConstant: 45),
 
+			errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+			errorLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 4),
+
 			loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 32),
 			loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 			loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -309,5 +347,13 @@ extension LoginScreenViewController: UITextFieldDelegate {
 		}
 
 		return false
+	}
+
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		updateLoginButtonState()
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+
+		}
 	}
 }

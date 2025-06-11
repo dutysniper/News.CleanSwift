@@ -28,7 +28,7 @@ final class MainCoordinator: BaseCoordinator {
 	}
 
 	func showLoginScreen() {
-		let viewController = LoginScreenAssembler().assembly()
+		let viewController = LoginScreenAssembler().assembly(loginClosure: showMainScreen)
 		navigationController.pushViewController(viewController, animated: true)
 	}
 
