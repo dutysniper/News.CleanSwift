@@ -35,7 +35,6 @@ final class NetworkManager: INetworkManager {
 			"phone": phone,
 			"password": password
 		]
-		print("ПАРАМЕТРЫ \(parameters)")
 
 		let headers: HTTPHeaders = [
 			"Content-Type": "application/x-www-form-urlencoded",
@@ -49,7 +48,6 @@ final class NetworkManager: INetworkManager {
 				   headers: headers)
 		.validate()
 		.responseDecodable(of: AuthResponse.self) { response in
-			print("Response: \(response)")
 
 			switch response.result {
 			case .success(let data):
@@ -80,7 +78,6 @@ final class NetworkManager: INetworkManager {
 				switch response.result {
 				case .success(let chars):
 					completion(.success(chars))
-					print("NM Success")
 				case .failure(let error):
 					completion(.failure(error))
 					print(error)

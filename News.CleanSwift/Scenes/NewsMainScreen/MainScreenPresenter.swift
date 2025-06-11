@@ -57,7 +57,6 @@ final class MainScreenPresenter: IMainScreenPresenter {
 		}
 	}
 	func presentSortWindow(response: MainScreen.Response.Sort) {
-		print("presenter: presentSortWindow ")
 		sortClosure?()
 	}
 

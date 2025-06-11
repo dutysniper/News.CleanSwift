@@ -34,6 +34,9 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 	// MARK: - Public methods
 
 	func loadPhoneMask() {
+//		guard let loginData = keychainManager?.getCredentials() else {
+//			return
+//		}
 		networkManager?.fetchPhoneMask { [weak self] result in
 			DispatchQueue.main.async {
 				switch result {
@@ -57,8 +60,7 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 				case .success(let success):
 					if success {
 						print("Success")
-						// Сохраняем данные в keychain при успешной авторизации
-//						self?.keychainManager?.saveCredentials(phone: phone, password: password)
+						self?.keychainManager?.saveCredentials(phone: phone, password: password)
 					}
 					self?.presenter?.presentAuthResult(success, errorMessage: nil)
 				case .failure(let error):

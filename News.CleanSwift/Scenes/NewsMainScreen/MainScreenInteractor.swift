@@ -62,7 +62,6 @@ final class MainScreenInteractor: IMainScreenInteractor {
 	}
 
 	func openSortWindow() {
-		print("interactor: openSortWindow")
 		presenter?.presentSortWindow(response: MainScreen.Response.Sort(isSortActive: true))
 	}
 

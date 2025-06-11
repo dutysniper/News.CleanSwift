@@ -23,8 +23,8 @@ final class MainCoordinator: BaseCoordinator {
 	// MARK: - Internal methods
 
 	override func start() {
-		showLoginScreen()
-//		showMainScreen()
+//		showLoginScreen()
+		showMainScreen()
 	}
 
 	func showLoginScreen() {
@@ -39,6 +39,7 @@ final class MainCoordinator: BaseCoordinator {
 
 	func showDetailScreen(with viewModel: Post) {
 		let viewController = DetalScreenAssembler().assembly(with: viewModel)
+		navigationController.pushViewController(viewController, animated: true)
 	}
 
 	func showSortWindow() -> SortClosure {
@@ -67,7 +68,6 @@ final class MainCoordinator: BaseCoordinator {
 
 
 	private func handleSortSelection(_ sortType: SortScreen.SortType) {
-		print("handleSortSelection called with: \(sortType)") 
 		guard let mainVC = navigationController.viewControllers.last as? MainScreenViewController else { return }
 		mainVC.interactor?.apply(sort: sortType)
 	}

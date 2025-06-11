@@ -10,7 +10,6 @@ import UIKit
 // MARK: - Protocols
 protocol ILoginScreenViewController: AnyObject {
 	func fetchMask()
-	func showAuthResult(_ success: Bool)
 	func showAuthResult(_ success: Bool, errorMessage: String?)
 	func showAuthError()
 	func setPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel)
@@ -107,10 +106,6 @@ final class LoginScreenViewController: UIViewController {
 extension LoginScreenViewController: ILoginScreenViewController {
 	func fetchMask() {
 		interactor?.loadPhoneMask()
-	}
-
-	func showAuthResult(_ success: Bool) {
-		print("Success login")
 	}
 	
 	func showAuthError() {

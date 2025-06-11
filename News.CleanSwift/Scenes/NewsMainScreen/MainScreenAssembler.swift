@@ -15,7 +15,11 @@ final class MainScreenAssembler {
 	func assembly(sortClosure: @escaping SortClosure, detailClosure: @escaping DetailClosure) -> MainScreenViewController {
 		let viewController = MainScreenViewController()
 		let networkManager = NetworkManager()
-		let presenter = MainScreenPresenter(viewController: viewController, sortClosure: sortClosure, detailClosure: detailClosure)
+		let presenter = MainScreenPresenter(
+			viewController: viewController,
+			sortClosure: sortClosure,
+			detailClosure: detailClosure
+		)
 		let interactor = MainScreenInteractor(
 			presenter: presenter,
 			networkManager: networkManager
