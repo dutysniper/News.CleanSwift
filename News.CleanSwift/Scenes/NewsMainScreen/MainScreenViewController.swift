@@ -49,7 +49,6 @@ final class MainScreenViewController: UIViewController {
 	// MARK: - Lifecycle
 
 	override func viewDidLoad() {
-		print("viewDidLoad")
 		super.viewDidLoad()
 		setupUI()
 		showLoadingState()
@@ -273,14 +272,22 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 		return cell
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		print("didSelectRow")
+
+		guard let interactor = interactor else {
+			return
+		}
+
 		switch sortType {
 		case .defaultByServer:
-			guard let viewModel = viewModel?.posts[indexPath.row] else { return }
-			interactor?.openDetailWindow(with: viewModel)
+			guard let viewModel = viewModel?.posts[indexPath.row] else {
+				return
+			}
+			interactor.openDetailWindow(with: viewModel)
 		case .byDate:
-			guard let viewModel = viewModel?.postsWithSort[indexPath.row] else { return }
-			interactor?.openDetailWindow(with: viewModel)
+			guard let viewModel = viewModel?.postsWithSort[indexPath.row] else {
+				return
+			}
+			interactor.openDetailWindow(with: viewModel)
 		}
 	}
 }

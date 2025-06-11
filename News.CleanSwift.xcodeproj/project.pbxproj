@@ -42,10 +42,10 @@
 		91D57E212DF88190001DEBAF /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E202DF88190001DEBAF /* CustomPresentationController.swift */; };
 		91D57E232DF8868A001DEBAF /* SortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */; };
 		91D57E252DF9A802001DEBAF /* String+formatUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E242DF9A802001DEBAF /* String+formatUserInput.swift */; };
-		91D57E282DFA080A001DEBAF /* DetailsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E272DFA080A001DEBAF /* DetailsScreenViewController.swift */; };
+		91D57E282DFA080A001DEBAF /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E272DFA080A001DEBAF /* DetailScreenViewController.swift */; };
 		91D57E2B2DFA0E96001DEBAF /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 91D57E2A2DFA0E96001DEBAF /* AlamofireImage */; };
 		91D57E2D2DFA1137001DEBAF /* DetailScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E2C2DFA1137001DEBAF /* DetailScreenInteractor.swift */; };
-		91D57E2F2DFA11F9001DEBAF /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E2E2DFA11F9001DEBAF /* File.swift */; };
+		91D57E2F2DFA11F9001DEBAF /* DetailScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E2E2DFA11F9001DEBAF /* DetailScreenModel.swift */; };
 		91D57E312DFA1774001DEBAF /* DetailScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E302DFA1774001DEBAF /* DetailScreenPresenter.swift */; };
 		91D57E332DFA1D62001DEBAF /* DetailScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E322DFA1D62001DEBAF /* DetailScreenAssembler.swift */; };
 /* End PBXBuildFile section */
@@ -106,9 +106,9 @@
 		91D57E202DF88190001DEBAF /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPresentationController.swift; path = Coordinators/Common/CustomPresentationController.swift; sourceTree = "<group>"; };
 		91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewCell.swift; sourceTree = "<group>"; };
 		91D57E242DF9A802001DEBAF /* String+formatUserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+formatUserInput.swift"; sourceTree = "<group>"; };
-		91D57E272DFA080A001DEBAF /* DetailsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsScreenViewController.swift; sourceTree = "<group>"; };
+		91D57E272DFA080A001DEBAF /* DetailScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
 		91D57E2C2DFA1137001DEBAF /* DetailScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenInteractor.swift; sourceTree = "<group>"; };
-		91D57E2E2DFA11F9001DEBAF /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		91D57E2E2DFA11F9001DEBAF /* DetailScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenModel.swift; sourceTree = "<group>"; };
 		91D57E302DFA1774001DEBAF /* DetailScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenPresenter.swift; sourceTree = "<group>"; };
 		91D57E322DFA1D62001DEBAF /* DetailScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenAssembler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,10 +292,10 @@
 		91D57E262DFA0789001DEBAF /* DetailsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				91D57E272DFA080A001DEBAF /* DetailsScreenViewController.swift */,
+				91D57E272DFA080A001DEBAF /* DetailScreenViewController.swift */,
 				91D57E2C2DFA1137001DEBAF /* DetailScreenInteractor.swift */,
 				91D57E302DFA1774001DEBAF /* DetailScreenPresenter.swift */,
-				91D57E2E2DFA11F9001DEBAF /* File.swift */,
+				91D57E2E2DFA11F9001DEBAF /* DetailScreenModel.swift */,
 				91D57E322DFA1D62001DEBAF /* DetailScreenAssembler.swift */,
 			);
 			path = DetailsScreen;
@@ -444,7 +444,7 @@
 				91D57E1B2DF86652001DEBAF /* SortScreenAssembler.swift in Sources */,
 				91D57DFD2DF44E53001DEBAF /* NetworkManager.swift in Sources */,
 				91D57DF62DF33017001DEBAF /* LoginScreenAssembler.swift in Sources */,
-				91D57E2F2DFA11F9001DEBAF /* File.swift in Sources */,
+				91D57E2F2DFA11F9001DEBAF /* DetailScreenModel.swift in Sources */,
 				91D57E0E2DF6FCE6001DEBAF /* MainScreenModel.swift in Sources */,
 				91D57DBA2DF32D67001DEBAF /* LoginScreenViewController.swift in Sources */,
 				91D57DF02DF32F31001DEBAF /* MainCoordinator.swift in Sources */,
@@ -470,7 +470,7 @@
 				91D57DF42DF32FDF001DEBAF /* LoginScreenPresenter.swift in Sources */,
 				91D57DB82DF32D67001DEBAF /* SceneDelegate.swift in Sources */,
 				91D57E192DF8661A001DEBAF /* SortCoordinator.swift in Sources */,
-				91D57E282DFA080A001DEBAF /* DetailsScreenViewController.swift in Sources */,
+				91D57E282DFA080A001DEBAF /* DetailScreenViewController.swift in Sources */,
 				91D57E1F2DF867AE001DEBAF /* SortScreenPresenter.swift in Sources */,
 				91D57E082DF6FC5A001DEBAF /* MainScreenViewController.swift in Sources */,
 			);

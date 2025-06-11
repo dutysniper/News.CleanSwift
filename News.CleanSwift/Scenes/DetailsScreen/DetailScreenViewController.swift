@@ -106,16 +106,14 @@ private extension DetailScreenViewController {
 				titleLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
 				titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-				imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+				imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 				imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-				imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 				imageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
 				imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 0.8),
 
 				postDetailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
 				postDetailLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
-				postDetailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-				postDetailLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+				postDetailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
 			]
 		)
 	}
