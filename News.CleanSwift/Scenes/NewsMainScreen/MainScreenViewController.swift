@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IMainScreenViewController: AnyObject {
-	func displayCharacters(viewModel: MainScreen.ViewModel)
+	func displayPosts(viewModel: MainScreen.ViewModel)
 	func toggleSortType(sortType: SortScreen.SortType)
 	func displayLoadingState(isLoading: Bool)
 }
@@ -67,7 +67,6 @@ final class MainScreenViewController: UIViewController {
 	private func fetchData() {
 		showLoadingState()
 		interactor?.fetchCharacters()
-//		charactersTableView.reloadData()
 	}
 
 	private func startAutoRefresh() {
@@ -116,7 +115,7 @@ extension MainScreenViewController: IMainScreenViewController {
 		charactersTableView.reloadData()
 	}
 	
-	func displayCharacters(viewModel: MainScreen.ViewModel) {
+	func displayPosts(viewModel: MainScreen.ViewModel) {
 
 		DispatchQueue.main.async { [weak self] in
 			self?.viewModel = viewModel
@@ -181,6 +180,7 @@ private extension MainScreenViewController {
 			PostsTableViewCell.self,
 			forCellReuseIdentifier:PostsTableViewCell.reuseIdentifier
 		)
+		tableView.backgroundColor = .white
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.rowHeight = UITableView.automaticDimension

@@ -10,7 +10,7 @@ import UIKit
 
 final class MainScreenAssembler {
 	/// Сборка модуля авторизации
-	/// - Parameter loginResultClosure: замыкание оповещающие о результате авторизации
+	/// - Parameter detailClosure: замыкание оповещающие об открытии детального экрана
 	/// - Returns: viewController
 	func assembly(sortClosure: @escaping SortClosure, detailClosure: @escaping DetailClosure) -> MainScreenViewController {
 		let viewController = MainScreenViewController()

@@ -11,6 +11,7 @@ protocol ILoginScreenPresenter {
 	func presentPhoneMask(response: LoginScreen.PhoneMask.Response)
 	func presentAuthResult(_ success: Bool, errorMessage: String?)
 	func presentAuthError(_ message: String)
+	func presentKeychainData(phone: String, password: String)
 }
 
 typealias LoginClosure = () -> ()
@@ -55,5 +56,7 @@ final class LoginScreenPresenter: ILoginScreenPresenter {
 		viewController?.showAuthError()
 	}
 
-	// MARK: - Private methods
+	func presentKeychainData(phone: String, password: String) {
+		viewController?.setSavedData(phone: phone, password: password)
+	}
 }

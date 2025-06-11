@@ -12,7 +12,6 @@ protocol IDetailScreenInteractor {
 }
 
 final class DetailScreenInteractor: IDetailScreenInteractor {
-	// MARK: - Public properties
 	// MARK: - Dependencies
 
 	private var presenter: IDetailScreenPresenter?

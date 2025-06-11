@@ -27,6 +27,7 @@ final class PostsTableViewCell: UITableViewCell {
 	}
 
 	func configure(with character: Post) {
+		contentView.backgroundColor = .white
 		titleLabel.text = character.title
 		phraseLabel.text = character.text
 		dateLabel.text = character.formattedDate
@@ -57,12 +58,14 @@ final class PostsTableViewCell: UITableViewCell {
 
 		titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
 		titleLabel.numberOfLines = 0
+		titleLabel.textColor = .black
 
 		dateLabel.font = UIFont.systemFont(ofSize: 12)
 		dateLabel.textColor = .gray
 
 		phraseLabel.font = UIFont.systemFont(ofSize: 14)
 		phraseLabel.numberOfLines = 0
+		phraseLabel.textColor = .black
 
 		NSLayoutConstraint.activate([
 			postImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),

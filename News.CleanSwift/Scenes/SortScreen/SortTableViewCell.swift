@@ -16,7 +16,7 @@ final class SortTableViewCell: UITableViewCell {
 	private let sortNameLabel: UILabel = {
 		let label = UILabel()
 		label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-		label.textColor = .label
+		label.textColor = .black
 		return label
 	}()
 
@@ -41,6 +41,7 @@ final class SortTableViewCell: UITableViewCell {
 
 	// MARK: - Configuration
 	func configure(with title: String, isSelected: Bool) {
+		contentView.backgroundColor = .white
 		sortNameLabel.text = title
 		checkmarkImageView.isHidden = !isSelected
 		accessoryType = .none 

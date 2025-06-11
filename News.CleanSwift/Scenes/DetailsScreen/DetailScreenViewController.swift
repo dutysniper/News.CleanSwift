@@ -13,7 +13,9 @@ protocol IDetailScreenViewController: AnyObject {
 
 final class DetailScreenViewController: UIViewController {
 	// MARK: - Public properties
+	
 	let viewModel: Post
+
 	// MARK: - Dependencies
 	
 	var interactor: IDetailScreenInteractor?

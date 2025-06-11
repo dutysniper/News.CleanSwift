@@ -13,6 +13,7 @@ protocol ILoginScreenViewController: AnyObject {
 	func showAuthResult(_ success: Bool, errorMessage: String?)
 	func showAuthError()
 	func setPhoneMask(viewModel: LoginScreen.PhoneMask.ViewModel)
+	func setSavedData(phone: String, password: String)
 }
 
 // MARK: - View Controller
@@ -104,6 +105,12 @@ final class LoginScreenViewController: UIViewController {
 
 // MARK: - ILoginScreenViewController
 extension LoginScreenViewController: ILoginScreenViewController {
+
+	func setSavedData(phone: String, password: String) {
+		phoneTextField.text = phone
+		passwordTextField.text = password
+	}
+
 	func fetchMask() {
 		interactor?.loadPhoneMask()
 	}
@@ -133,19 +140,16 @@ extension LoginScreenViewController: ILoginScreenViewController {
 	private func format(with mask: String, phone: String) -> String {
 		let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
 		var result = ""
-		var index = numbers.startIndex // numbers iterator
+		var index = numbers.startIndex
 
-		// iterate over the mask characters until the iterator of numbers ends
 		for ch in mask where index < numbers.endIndex {
 			if ch == "X" || ch == "Х" {
-				// mask requires a number in this place, so take the next one
 				result.append(numbers[index])
 
-				// move numbers iterator to the next index
 				index = numbers.index(after: index)
 
 			} else {
-				result.append(ch) // just append a mask character
+				result.append(ch)
 			}
 		}
 		return result
@@ -164,7 +168,6 @@ private extension LoginScreenViewController {
 		phoneTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
-		// Устанавливаем делегат для обработки ввода
 		phoneTextField.delegate = self
 		passwordTextField.delegate = self
 
@@ -197,10 +200,6 @@ private extension LoginScreenViewController {
 			label.font = .systemFont(ofSize: 17, weight: .medium)
 			label.textColor = .black
 		}
-
-//		label.font = text == "Вход в аккаунт"
-//		? .systemFont(ofSize: 20, weight: .semibold)
-//		: .systemFont(ofSize: 17, weight: .medium)
 		return label
 	}
 
@@ -319,22 +318,18 @@ extension LoginScreenViewController: UITextFieldDelegate {
 		var newText = currentText
 
 		if range.length > 0 {
-			// Удаление символов
 			let start = currentText.index(currentText.startIndex, offsetBy: range.location)
 			let end = currentText.index(start, offsetBy: range.length)
 			newText = currentText.replacingCharacters(in: start..<end, with: "")
 		} else {
-			// Вставка цифр (фильтруем нецифровые символы)
 			let digits = string.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
 			let start = currentText.index(currentText.startIndex, offsetBy: range.location)
 			newText = currentText.replacingCharacters(in: start..<start, with: digits)
 		}
 
-		// Применяем маску
 		let formattedText = newText.applyPhoneMask(phoneMask)
 		textField.text = formattedText
 
-		// Позиционируем курсор
 		DispatchQueue.main.async {
 			if let newPosition = textField.position(from: textField.endOfDocument, offset: 0) {
 				textField.selectedTextRange = textField.textRange(from: newPosition, to: newPosition)

@@ -15,12 +15,11 @@ protocol IMainScreenInteractor {
 }
 
 final class MainScreenInteractor: IMainScreenInteractor {
-	// MARK: - Public properties
 	// MARK: - Dependencies
 
 	private var presenter: IMainScreenPresenter?
 	private var networkManager: INetworkManager?
-	// MARK: - Private properties
+	
 	// MARK: - Initialization
 
 	init(presenter: IMainScreenPresenter?, networkManager: INetworkManager?) {
@@ -30,7 +29,7 @@ final class MainScreenInteractor: IMainScreenInteractor {
 
 	// MARK: - Public methods
 	func fetchCharacters() {
-		presenter?.presentCharacters(
+		presenter?.presentPosts(
 			response: MainScreen.Response.Posts(
 				posts: [],
 				error: nil,
@@ -41,7 +40,7 @@ final class MainScreenInteractor: IMainScreenInteractor {
 		networkManager?.fetchChars(completion: { [weak self] result in
 			switch result {
 			case .success(let posts):
-				self?.presenter?.presentCharacters(
+				self?.presenter?.presentPosts(
 					response: MainScreen.Response.Posts(
 						posts: posts.sorted { $0.sort < $1.sort },
 						error: nil,
@@ -50,7 +49,7 @@ final class MainScreenInteractor: IMainScreenInteractor {
 				)
 			case .failure(let error):
 				print("failure")
-				self?.presenter?.presentCharacters(
+				self?.presenter?.presentPosts(
 					response: MainScreen.Response.Posts(
 						posts: [],
 						error: error,
@@ -71,5 +70,4 @@ final class MainScreenInteractor: IMainScreenInteractor {
 	func apply(sort: SortScreen.SortType) {
 		presenter?.presentSortPosts(sort: sort)
 	}
-	// MARK: - Private methods
 }

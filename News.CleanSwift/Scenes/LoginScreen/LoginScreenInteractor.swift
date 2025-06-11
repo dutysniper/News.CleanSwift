@@ -13,15 +13,11 @@ protocol ILoginScreenInteractor {
 }
 
 final class LoginScreenInteractor: ILoginScreenInteractor {
-	
-	// MARK: - Public properties
 
 	// MARK: - Dependencies
 	private var presenter: ILoginScreenPresenter?
 	private var networkManager: INetworkManager?
 	private var keychainManager: IKeychainManager?
-
-	// MARK: - Private properties
 
 	// MARK: - Initialization
 	
@@ -34,22 +30,23 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 	// MARK: - Public methods
 
 	func loadPhoneMask() {
-//		guard let loginData = keychainManager?.getCredentials() else {
-//			return
-//		}
-		networkManager?.fetchPhoneMask { [weak self] result in
-			DispatchQueue.main.async {
-				switch result {
-				case .success(let mask):
-					let response = LoginScreen.PhoneMask.Response(phoneMask: mask)
-					self?.presenter?.presentPhoneMask(response: response)
+		guard let loginData = keychainManager?.getCredentials() else {
+			networkManager?.fetchPhoneMask { [weak self] result in
+				DispatchQueue.main.async {
+					switch result {
+					case .success(let mask):
+						let response = LoginScreen.PhoneMask.Response(phoneMask: mask)
+						self?.presenter?.presentPhoneMask(response: response)
 
 
-				case .failure(let error):
-					print("Failed to load phone mask: \(error)")
+					case .failure(let error):
+						print("Failed to load phone mask: \(error)")
+					}
 				}
 			}
+			return
 		}
+		presenter?.presentKeychainData(phone: loginData.phone, password: loginData.password)
 	}
 
 
@@ -59,7 +56,6 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 				switch result {
 				case .success(let success):
 					if success {
-						print("Success")
 						self?.keychainManager?.saveCredentials(phone: phone, password: password)
 					}
 					self?.presenter?.presentAuthResult(success, errorMessage: nil)
@@ -69,5 +65,4 @@ final class LoginScreenInteractor: ILoginScreenInteractor {
 			}
 		}
 	}
-	// MARK: - Private methods
 }
