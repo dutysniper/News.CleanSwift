@@ -66,6 +66,5 @@ final class MainCoordinator: BaseCoordinator {
 		print("handleSortSelection called with: \(sortType)") 
 		guard let mainVC = navigationController.viewControllers.last as? MainScreenViewController else { return }
 		mainVC.interactor?.apply(sort: sortType)
-		
 	}
 }

@@ -77,7 +77,15 @@ final class MainScreenViewController: UIViewController {
 
 extension MainScreenViewController: IMainScreenViewController {
 	func toggleSortType(sortType: SortScreen.SortType) {
-		self.sortType = sortType
+		if self.sortType != sortType {
+			self.sortType = sortType
+			switch sortType {
+			case .defaultByServer:
+				sortButton.setTitle("По умолчанию ▼", for: .normal)
+			case .byDate:
+				sortButton.setTitle("По дате ▼", for: .normal)
+			}
+		}
 		charactersTableView.reloadData()
 	}
 	
@@ -130,12 +138,7 @@ private extension MainScreenViewController {
 
 	func makeButton() -> UIButton {
 		let button = UIButton()
-		switch sortType {
-		case .defaultByServer:
-			button.setTitle("По умолчанию ▼", for: .normal)
-		case .byDate:
-			button.setTitle("По дате ▼", for: .normal)
-		}
+		button.setTitle("По умолчанию ▼", for: .normal)
 		button.setTitleColor(.black, for: .normal)
 		button.addTarget(self, action: #selector(openSortScreen), for: .touchUpInside)
 		button.translatesAutoresizingMaskIntoConstraints = false
