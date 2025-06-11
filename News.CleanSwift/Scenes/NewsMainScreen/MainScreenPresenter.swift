@@ -33,11 +33,24 @@ final class MainScreenPresenter: IMainScreenPresenter {
 	// MARK: - Public methods
 
 	func presentCharacters(response: MainScreen.Response.Posts) {
+		let loadingState: MainScreen.LoadingState
+
+		if response.isLoading {
+			loadingState = .loading
+		} else if let error = response.error {
+			loadingState = .error(error.localizedDescription)
+		} else {
+			loadingState = .loaded
+		}
+
 		let viewModel = MainScreen.ViewModel(
 			posts: response.posts,
+			loadingState: loadingState,
 			errorMessage: response.error?.localizedDescription
 		)
-		viewController?.displayCharacters(viewModel: viewModel)
+		DispatchQueue.main.async { [weak self] in
+			self?.viewController?.displayCharacters(viewModel: viewModel)
+		}
 	}
 	func presentSortWindow(response: MainScreen.Response.Sort) {
 		sortClosure?()

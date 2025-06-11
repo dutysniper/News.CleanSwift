@@ -12,6 +12,7 @@ enum MainScreen {
 		struct Posts{
 			let posts: [Post]
 			let error: Error?
+			let isLoading: Bool
 		}
 		struct Sort {
 			let isSortActive: Bool
@@ -20,6 +21,7 @@ enum MainScreen {
 	}
 	struct ViewModel {
 		let posts: [Post]
+		let loadingState: LoadingState
 		let errorMessage: String?
 		var postsWithSort: [Post] {
 			let posts = posts.sorted { post1, post2 in
@@ -27,6 +29,12 @@ enum MainScreen {
 			}
 			return posts
 		}
+	}
+	enum LoadingState {
+		case idle
+		case loading
+		case loaded
+		case error(String)
 	}
 }
 

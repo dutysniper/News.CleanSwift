@@ -10,6 +10,7 @@ import UIKit
 protocol IMainScreenViewController: AnyObject {
 	func displayCharacters(viewModel: MainScreen.ViewModel)
 	func toggleSortType(sortType: SortScreen.SortType)
+	func displayLoadingState(isLoading: Bool)
 }
 
 final class MainScreenViewController: UIViewController {
@@ -27,6 +28,7 @@ final class MainScreenViewController: UIViewController {
 	private lazy var charactersTableView = makeTableView()
 	private lazy var refreshControl = makeRefreshControl()
 	private lazy var sortButton = makeButton()
+	private lazy var loadingIndicator = makeLoadingIndicator()
 	private var viewModel: MainScreen.ViewModel?
 	private var timer: Timer?
 
@@ -50,6 +52,7 @@ final class MainScreenViewController: UIViewController {
 		print("viewDidLoad")
 		super.viewDidLoad()
 		setupUI()
+		showLoadingState()
 		fetchData()
 		startAutoRefresh()
 	}
@@ -63,7 +66,9 @@ final class MainScreenViewController: UIViewController {
 	// MARK: - Private methods
 
 	private func fetchData() {
+		showLoadingState()
 		interactor?.fetchCharacters()
+//		charactersTableView.reloadData()
 	}
 
 	private func startAutoRefresh() {
@@ -71,11 +76,34 @@ final class MainScreenViewController: UIViewController {
 			self?.fetchData()
 		}
 	}
+	private func showLoadingState() {
+		loadingIndicator.startAnimating()
+		loadingIndicator.isHidden = false
+		charactersTableView.isHidden = true
+		sortButton.isHidden = true
+	}
+
+	private func hideLoadingState() {
+		loadingIndicator.stopAnimating()
+		loadingIndicator.isHidden = true
+		charactersTableView.isHidden = false
+		sortButton.isHidden = false
+	}
 }
 
 //MARK: - IDotaCharactersScreenViewController
 
 extension MainScreenViewController: IMainScreenViewController {
+	func displayLoadingState(isLoading: Bool) {
+		DispatchQueue.main.async { [weak self] in
+			if isLoading {
+				self?.showLoadingState()
+			} else {
+				self?.hideLoadingState()
+			}
+		}
+	}
+	
 	func toggleSortType(sortType: SortScreen.SortType) {
 		if self.sortType != sortType {
 			self.sortType = sortType
@@ -90,9 +118,30 @@ extension MainScreenViewController: IMainScreenViewController {
 	}
 	
 	func displayCharacters(viewModel: MainScreen.ViewModel) {
-		self.viewModel = viewModel
-		self.charactersTableView.reloadData()
-		refreshControl.endRefreshing()
+
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel = viewModel
+			switch viewModel.loadingState {
+			case .loading:
+				self?.showLoadingState()
+			case .loaded:
+				self?.hideLoadingState()
+				self?.charactersTableView.reloadData()
+			case .error(let message):
+				self?.hideLoadingState()
+				self?.showError(message)
+			case .idle:
+				break
+			}
+
+			self?.refreshControl.endRefreshing()
+		}
+	}
+
+	private func showError(_ message: String) {
+		let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .default))
+		present(alert, animated: true)
 	}
 }
 
@@ -102,6 +151,17 @@ private extension MainScreenViewController {
 	func setupUI() {
 		view.backgroundColor = .white
 		title = "Dev Exam"
+	}
+
+	func makeLoadingIndicator() -> UIActivityIndicatorView {
+		let indicator = UIActivityIndicatorView(style: .large)
+
+		indicator.color = .gray
+		indicator.translatesAutoresizingMaskIntoConstraints = false
+		indicator.hidesWhenStopped = true
+		view.addSubview(indicator)
+
+		return indicator
 	}
 
 	func makeRefreshControl() -> UIRefreshControl {
@@ -152,6 +212,8 @@ private extension MainScreenViewController {
 	}
 
 	@objc func refreshData() {
+		viewModel = nil
+		charactersTableView.reloadData()
 		fetchData()
 	}
 }
@@ -162,6 +224,9 @@ private extension MainScreenViewController {
 	func layout() {
 		NSLayoutConstraint.activate(
 			[
+			loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
 			sortButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
 			sortButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
 
@@ -181,7 +246,12 @@ extension MainScreenViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		guard let viewModel = viewModel else { return 0 }
 		
-		return viewModel.posts.count
+		switch sortType {
+		case .defaultByServer:
+			return viewModel.posts.count
+		case .byDate:
+			return viewModel.postsWithSort.count
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

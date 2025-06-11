@@ -28,20 +28,32 @@ final class MainScreenInteractor: IMainScreenInteractor {
 
 	// MARK: - Public methods
 	func fetchCharacters() {
+		presenter?.presentCharacters(
+			response: MainScreen.Response.Posts(
+				posts: [],
+				error: nil,
+				isLoading: true
+			)
+		)
+
 		networkManager?.fetchChars(completion: { [weak self] result in
 			switch result {
 			case .success(let posts):
 				self?.presenter?.presentCharacters(
 					response: MainScreen.Response.Posts(
 						posts: posts.sorted { $0.sort < $1.sort },
-						error: nil)
+						error: nil,
+						isLoading: false
+					)
 				)
 			case .failure(let error):
 				print("failure")
 				self?.presenter?.presentCharacters(
 					response: MainScreen.Response.Posts(
 						posts: [],
-						error: error)
+						error: error,
+						isLoading: false
+					)
 				)
 			}
 		})
