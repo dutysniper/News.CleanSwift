@@ -41,6 +41,7 @@
 		91D57E1F2DF867AE001DEBAF /* SortScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E1E2DF867AE001DEBAF /* SortScreenPresenter.swift */; };
 		91D57E212DF88190001DEBAF /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E202DF88190001DEBAF /* CustomPresentationController.swift */; };
 		91D57E232DF8868A001DEBAF /* SortTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */; };
+		91D57E252DF9A802001DEBAF /* String+formatUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E242DF9A802001DEBAF /* String+formatUserInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		91D57E1E2DF867AE001DEBAF /* SortScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortScreenPresenter.swift; sourceTree = "<group>"; };
 		91D57E202DF88190001DEBAF /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPresentationController.swift; path = Coordinators/Common/CustomPresentationController.swift; sourceTree = "<group>"; };
 		91D57E222DF8868A001DEBAF /* SortTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTableViewCell.swift; sourceTree = "<group>"; };
+		91D57E242DF9A802001DEBAF /* String+formatUserInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+formatUserInput.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				91D57DF52DF33017001DEBAF /* LoginScreenAssembler.swift */,
 				91D57DF72DF3374B001DEBAF /* LoginScreenModel.swift */,
 				91D57DF92DF36DDA001DEBAF /* EyeButton.swift */,
+				91D57E242DF9A802001DEBAF /* String+formatUserInput.swift */,
 			);
 			path = LoginScreen;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				91D57E212DF88190001DEBAF /* CustomPresentationController.swift in Sources */,
 				91D57E122DF70399001DEBAF /* PostsTableViewCell.swift in Sources */,
 				91D57E152DF86083001DEBAF /* SortScreenModel.swift in Sources */,
+				91D57E252DF9A802001DEBAF /* String+formatUserInput.swift in Sources */,
 				91D57E0A2DF6FC84001DEBAF /* MainScreenInteractor.swift in Sources */,
 				91D57DEE2DF32EF3001DEBAF /* AppCoordinator.swift in Sources */,
 				91D57E1D2DF867A2001DEBAF /* SortScreenInteractor.swift in Sources */,

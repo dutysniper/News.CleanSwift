@@ -11,12 +11,10 @@ enum LoginScreen {
 	enum PhoneMask {
 		struct Request {}
 		struct Response {
-			let formattedPhone: String?
-			let shouldUpdateMask: Bool
+			let phoneMask: String
 		}
 		struct ViewModel {
 			let phoneMask: String
-			let formattedPhone: String?
 		}
 	}
 

@@ -23,8 +23,8 @@ final class MainCoordinator: BaseCoordinator {
 	// MARK: - Internal methods
 
 	override func start() {
-//		showLoginScreen()
-		showMainScreen()
+		showLoginScreen()
+//		showMainScreen()
 	}
 
 	func showLoginScreen() {

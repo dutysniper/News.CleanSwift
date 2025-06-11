@@ -16,13 +16,11 @@ final class LoginScreenAssembler: ILoginScreenAssembler {
 	/// - Parameter loginResultClosure: замыкание оповещающие о результате авторизации
 	/// - Returns: viewController
 	func assembly() -> LoginScreenViewController {
-		let phoneNumberFormatter = PhoneNumberFormatter(mask: "+7 (XXX) XXX-XX-XX")
 		let viewController = LoginScreenViewController()
 		let networkManager = NetworkManager()
 		let keychainManger = KeychainManager()
 		let presenter = LoginScreenPresenter(viewController: viewController)
 		let interactor = LoginScreenInteractor(
-			phoneNumberFormatter: phoneNumberFormatter,
 			presenter: presenter,
 			networkManager: networkManager,
 			keychainManager: keychainManger

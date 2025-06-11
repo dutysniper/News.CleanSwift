@@ -9,7 +9,7 @@ import Foundation
 
 protocol ILoginScreenPresenter {
 	func presentPhoneMask(response: LoginScreen.PhoneMask.Response)
-	func presentAuthResult(_ success: Bool)
+	func presentAuthResult(_ success: Bool, errorMessage: String?)
 	func presentAuthError(_ message: String)
 }
 
@@ -31,16 +31,14 @@ final class LoginScreenPresenter: ILoginScreenPresenter {
 	// MARK: - Public methods
 
 	func presentPhoneMask(response: LoginScreen.PhoneMask.Response) {
-		if response.shouldUpdateMask {
-			viewController?.updatePhoneMask()
-		}
-		if let phone = response.formattedPhone {
-			viewController?.setPhoneNumber(phone)
-		}
+		let viewModel = LoginScreen.PhoneMask.ViewModel(phoneMask: response.phoneMask
+		)
+
+		viewController?.setPhoneMask(viewModel: viewModel)
 	}
 
-	func presentAuthResult(_ success: Bool) {
-		viewController?.showAuthResult(success)
+	func presentAuthResult(_ success: Bool, errorMessage: String? = nil) {
+		viewController?.showAuthResult(success, errorMessage: errorMessage)
 	}
 
 	func presentAuthError(_ message: String) {

@@ -10,14 +10,16 @@ import Foundation
 protocol IPhoneNumberFormatter {
 	func formatNumber(from phone: String) -> String
 	func cleanNumber(from formattedPhone: String) -> String
+	func updateMask(_ newMask: String)
 	var prefix: String { get }
+	var mask: String { get }
 }
 
 final class PhoneNumberFormatter: IPhoneNumberFormatter {
-	private let maskAfterPrefix: String
-	private var mask: String
+	private var maskAfterPrefix: String
+	var mask: String
 	var prefix: String
-	
+
 	init(mask: String) {
 		self.mask = mask
 		self.prefix = Self.extractPrefix(from: mask)
@@ -27,30 +29,36 @@ final class PhoneNumberFormatter: IPhoneNumberFormatter {
 	func updateMask(_ newMask: String) {
 		self.mask = newMask
 		self.prefix = Self.extractPrefix(from: newMask)
+		self.maskAfterPrefix = String(newMask.dropFirst(prefix.count))
 	}
 
 	func formatNumber(from phone: String) -> String {
-		// Получаем только цифры
+		// Получаем только цифры из входящего номера
 		let cleanPhone = phone.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
 
-		// Если номер начинается с префикса, используем его, иначе добавляем
-		let phoneDigits: String
-		if cleanPhone.hasPrefix(prefix.filter { $0.isNumber }) {
-			phoneDigits = cleanPhone
-		} else {
-			phoneDigits = prefix.filter { $0.isNumber } + cleanPhone
+		// Получаем цифры префикса
+		let prefixDigits = prefix.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+
+		// Если номер короче префикса, возвращаем префикс
+		if cleanPhone.count <= prefixDigits.count {
+			return prefix
 		}
 
-		// Форматируем согласно маске
-		var result = prefix
-		var digitIndex = phoneDigits.index(phoneDigits.startIndex, offsetBy: prefix.filter { $0.isNumber }.count)
+		// Берем цифры после префикса
+		let phoneAfterPrefix = String(cleanPhone.dropFirst(prefixDigits.count))
 
+		// Начинаем с префикса
+		var result = prefix
+		var digitIndex = 0
+
+		// Форматируем цифры после префикса согласно маске
 		for maskChar in maskAfterPrefix {
-			guard digitIndex < phoneDigits.endIndex else { break }
+			guard digitIndex < phoneAfterPrefix.count else { break }
 
 			if maskChar == "X" || maskChar == "Х" {
-				result.append(phoneDigits[digitIndex])
-				digitIndex = phoneDigits.index(after: digitIndex)
+				let char = phoneAfterPrefix[phoneAfterPrefix.index(phoneAfterPrefix.startIndex, offsetBy: digitIndex)]
+				result.append(char)
+				digitIndex += 1
 			} else {
 				result.append(maskChar)
 			}
