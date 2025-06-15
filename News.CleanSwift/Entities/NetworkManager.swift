@@ -103,12 +103,6 @@ final class NetworkManager: INetworkManager {
 		}
 	}
 
-	func loadImage(from string: String) {
-		let baseURL = "http://dev-exam.l-tech.ru"
-		guard let url = URL(string: baseURL + string) else { return }
-
-	}
-
 	private func errorMessage(for statusCode: Int) -> String {
 		switch statusCode {
 			case 400: return "Неверный запрос"
@@ -116,8 +110,6 @@ final class NetworkManager: INetworkManager {
 			default: return "Ошибка сервера"
 		}
 	}
-
-	
 }
 
 // MARK: - Response Models

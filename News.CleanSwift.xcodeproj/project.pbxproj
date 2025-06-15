@@ -26,7 +26,6 @@
 		91D57DFD2DF44E53001DEBAF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */; };
 		91D57E002DF44F21001DEBAF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 91D57DFF2DF44F21001DEBAF /* Alamofire */; };
 		91D57E022DF451C1001DEBAF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E012DF451C1001DEBAF /* KeychainManager.swift */; };
-		91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */; };
 		91D57E082DF6FC5A001DEBAF /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E072DF6FC5A001DEBAF /* MainScreenViewController.swift */; };
 		91D57E0A2DF6FC84001DEBAF /* MainScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E092DF6FC84001DEBAF /* MainScreenInteractor.swift */; };
 		91D57E0C2DF6FCB4001DEBAF /* MainScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D57E0B2DF6FCB4001DEBAF /* MainScreenPresenter.swift */; };
@@ -90,7 +89,6 @@
 		91D57DF92DF36DDA001DEBAF /* EyeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeButton.swift; sourceTree = "<group>"; };
 		91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		91D57E012DF451C1001DEBAF /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
-		91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
 		91D57E072DF6FC5A001DEBAF /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		91D57E092DF6FC84001DEBAF /* MainScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenInteractor.swift; sourceTree = "<group>"; };
 		91D57E0B2DF6FCB4001DEBAF /* MainScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenPresenter.swift; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 			children = (
 				91D57DFC2DF44E53001DEBAF /* NetworkManager.swift */,
 				91D57E012DF451C1001DEBAF /* KeychainManager.swift */,
-				91D57E042DF4615D001DEBAF /* PhoneNumberFormatter.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -462,7 +459,6 @@
 				91D57E1D2DF867A2001DEBAF /* SortScreenInteractor.swift in Sources */,
 				91D57E232DF8868A001DEBAF /* SortTableViewCell.swift in Sources */,
 				91D57DFA2DF36DDA001DEBAF /* EyeButton.swift in Sources */,
-				91D57E052DF4615D001DEBAF /* PhoneNumberFormatter.swift in Sources */,
 				91D57DEC2DF32ED5001DEBAF /* ICoordinator.swift in Sources */,
 				91D57E332DFA1D62001DEBAF /* DetailScreenAssembler.swift in Sources */,
 				91D57DF22DF32FA6001DEBAF /* LoginScreenInteractor.swift in Sources */,

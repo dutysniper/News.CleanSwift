@@ -10,7 +10,6 @@ import Foundation
 protocol ILoginScreenPresenter {
 	func presentPhoneMask(response: LoginScreen.PhoneMask.Response)
 	func presentAuthResult(_ success: Bool, errorMessage: String?)
-	func presentAuthError(_ message: String)
 	func presentKeychainData(phone: String, password: String)
 }
 
@@ -50,10 +49,6 @@ final class LoginScreenPresenter: ILoginScreenPresenter {
 		case false:
 			viewController?.showAuthError()
 		}
-	}
-
-	func presentAuthError(_ message: String) {
-		viewController?.showAuthError()
 	}
 
 	func presentKeychainData(phone: String, password: String) {
